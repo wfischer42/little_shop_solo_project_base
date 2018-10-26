@@ -1,10 +1,11 @@
 FactoryBot.define do
   factory :item do
-    merchant
-    name { |n| "Item #{n}" }
-    description { |n| "Item #{n}" }
-    price { |n| n*1.5 }
-    inventory { |n| n*10 }
+    user
+    name { |n| "Name #{n}" }
+    description { |n| "Description #{n}" }
+    image { |n| "Image #{n}" }
+    price { |n| ("#{n}".to_i+1)*1.5 }
+    inventory { |n| ("#{n}".to_i+1)*10 }
     active { true }
   end
 end

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe OrderItem, type: :model do
   describe 'Relationships' do
-    it { should have_many(:orders) }
-    it { should have_many(:items) }
+    it { should belong_to(:order) }
+    it { should belong_to(:item) }
   end
 
   describe 'Validations' do 
@@ -19,6 +19,7 @@ RSpec.describe OrderItem, type: :model do
   describe 'Instance Methods' do 
     it '.subtotal' do
       order_item = create(:order_item)
+      # binding.pry
       expect(order_item.subtotal).to eq(3)
     end
   end
