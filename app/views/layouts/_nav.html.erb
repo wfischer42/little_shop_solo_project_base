@@ -8,6 +8,7 @@
     <%= link_to 'Log in', login_path %>
     <%= link_to 'Register', register_path %>
   <% else %>
+    <span>Logged in as <%= current_user.name %></span>
     <%= link_to 'Profile', profile_path %>
     <%= link_to 'Orders', orders_path %>
 

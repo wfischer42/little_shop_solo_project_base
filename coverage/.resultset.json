@@ -91,6 +91,20 @@
         null,
         1,
         1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
         null,
         null,
         1,
@@ -101,18 +115,6 @@
         1,
         1,
         null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        1,
-        1,
-        1,
         null,
         null,
         null,
@@ -302,7 +304,7 @@
         1,
         null,
         1,
-        38,
+        41,
         null,
         null,
         1,
@@ -387,6 +389,12 @@
         null,
         null
       ],
+      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/dashboard_controller.rb": [
+        1,
+        1,
+        null,
+        null
+      ],
       "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/orders_controller.rb": [
         1,
         1,
@@ -398,14 +406,8 @@
         null,
         null,
         null
-      ],
-      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/dashboard_controller.rb": [
-        1,
-        1,
-        null,
-        null
       ]
     },
-    "timestamp": 1540534809
+    "timestamp": 1540535063
   }
 }

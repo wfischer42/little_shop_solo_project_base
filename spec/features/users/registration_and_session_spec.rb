@@ -86,29 +86,31 @@ describe 'Registration and Session Management' do
       click_button 'Log in'
 
       expect(current_path).to eq(profile_path)
+      expect(page).to have_content("Logged in as #{@user.name}")
       expect(page).to have_content(@email)
     end
+    describe 'logging in did not succeed' do
+      scenario 'because credentials are incorrect' do
+        visit root_path
+        click_link 'Log in'
 
-    it 'should fail if credentials are incorrect' do
-      visit root_path
-      click_link 'Log in'
+        fill_in :email, with: @username
+        fill_in :password, with: 'bad password'
+        click_button 'Log in'
 
-      fill_in :email, with: @username
-      fill_in :password, with: 'bad password'
-      click_button 'Log in'
+        expect(current_path).to eq(login_path)
+        expect(page).to have_button("Log in")
+        expect(page).to_not have_content(@email)
+      end
 
-      expect(current_path).to eq(login_path)
-      expect(page).to have_button("Log in")
-      expect(page).to_not have_content(@email)
-    end
+      scenario 'because credentials are empty' do
+        visit login_path
+        click_button 'Log in'
 
-    it 'should fail if credentials are empty' do
-      visit login_path
-      click_button 'Log in'
-
-      expect(current_path).to eq(login_path)
-      expect(page).to have_button("Log in")
-      expect(page).to_not have_content(@email)
+        expect(current_path).to eq(login_path)
+        expect(page).to have_button("Log in")
+        expect(page).to_not have_content(@email)
+      end
     end
   end
 
