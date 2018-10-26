@@ -41,6 +41,10 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov'
   gem 'factory_bot_rails'
+
+  # needed for Ian's system at home only
+  gem 'execjs'
+  gem 'therubyracer'
 end
 
 group :development do

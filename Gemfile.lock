@@ -42,6 +42,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
     bcrypt (3.1.12)
+    bcrypt (3.1.12-x64-mingw32)
     bindex (0.5.0)
     builder (3.2.3)
     byebug (10.0.2)
@@ -73,6 +74,7 @@ GEM
       factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
     ffi (1.9.25)
+    ffi (1.9.25-x64-mingw32)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (1.1.1)
@@ -83,6 +85,7 @@ GEM
     json (2.1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    libv8 (3.16.14.19)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -100,7 +103,10 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
+    nokogiri (1.8.5-x64-mingw32)
+      mini_portile2 (~> 2.3.0)
     pg (1.1.3)
+    pg (1.1.3-x64-mingw32)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -136,6 +142,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    ref (2.0.0)
     regexp_parser (1.2.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
@@ -180,11 +187,16 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    therubyracer (0.12.3)
+      libv8 (~> 3.16.14.15)
+      ref
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2018.6)
+      tzinfo (>= 1.0.0)
     uglifier (4.1.19)
       execjs (>= 0.3.0, < 3)
     web-console (3.7.0)
@@ -200,12 +212,14 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   byebug
   capybara
   coffee-rails (~> 4.2)
+  execjs
   factory_bot_rails
   jbuilder (~> 2.5)
   launchy
@@ -218,9 +232,10 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   shoulda-matchers (~> 3.1)
   simplecov
+  therubyracer
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.4
+   1.17.1

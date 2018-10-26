@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:index, :new]
   resources :items, only: [:index, :new]
-  resources :users, only: [:new, :create, :edit]
+  resources :users, only: [:index, :new, :create, :edit, :destroy]
   get '/merchants', to: 'merchants#index'
   get '/merchants/:id', to: 'merchants#show'
 end

@@ -40,7 +40,7 @@ describe 'Site Navigation' do
   end
 
   context 'as a merchant' do 
-    xit 'all links work' do 
+    it 'all links work' do
       merchant = create(:merchant)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
@@ -52,7 +52,7 @@ describe 'Site Navigation' do
   end
 
   context 'as an admin' do 
-    xit 'all links work' do 
+    it 'all links work' do
       admin = create(:admin)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
