@@ -2,13 +2,16 @@ Rails.application.routes.draw do
   root 'welcome#show'
 
   get '/login', to: 'session#new'
-  # post '/login', to: 'session#create'
+  post '/login', to: 'session#create'
+  get '/logout', to: 'session#destroy'
+
   get '/register', to: 'users#new'
-  # post '/register', to: 'users#create'
+  post '/register', to: 'users#create'
 
   get '/cart', to: 'cart#show'
   # patch '/cart', to: 'cart#update'
   
+  get '/profile', to: 'users#show'
   get '/dashboard', to: 'dashboard#show'
 
   namespace :profile, only: [:show] do

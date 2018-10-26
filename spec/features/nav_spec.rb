@@ -13,7 +13,7 @@ describe 'Site Navigation' do
       expect(current_path).to eq(merchants_path)
       click_link 'Cart'
       expect(current_path).to eq(cart_path)
-      click_link 'Login'
+      click_link 'Log in'
       expect(current_path).to eq(login_path)
       click_link 'Register'
       expect(current_path).to eq(register_path)
@@ -22,10 +22,16 @@ describe 'Site Navigation' do
 
   context 'as a registered user' do 
     it 'all links work' do 
+      user = create(:user)
+      allow_any_instance_of(ApplicationController).to \
+        receive(:current_user).and_return(user)
+
       visit root_path
 
       expect(page).to_not have_link(login_path)
       expect(page).to_not have_link(register_path)
+
+      expect(page).to have_link("Log out")
 
       click_link 'Profile'
       expect(current_path).to eq(profile_path)
@@ -35,8 +41,12 @@ describe 'Site Navigation' do
   end
 
   context 'as a merchant' do 
-    it 'all links work' do 
-      visit root_path
+    xit 'all links work' do 
+      merchant = create(:merchant)
+      allow_any_instance_of(ApplicationController).to \
+        receive(:current_user).and_return(merchant)
+
+        visit root_path
 
       click_link 'Dashboard'
       expect(current_path).to eq(dashboard_path)
@@ -44,7 +54,11 @@ describe 'Site Navigation' do
   end
 
   context 'as an admin' do 
-    it 'all links work' do 
+    xit 'all links work' do 
+      admin = create(:admin)
+      allow_any_instance_of(ApplicationController).to \
+        receive(:current_user).and_return(admin)
+
       visit root_path
 
       click_link 'Dashboard'
