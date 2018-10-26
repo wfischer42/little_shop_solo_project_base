@@ -14,7 +14,7 @@
       <%= @user.zip %></td></tr>
   </table>
 
-  <p><%= link_to "Edit Profile Data", edit_user_path(@user) %></p>
+  <p><%= link_to "Edit Profile Data", current_admin? ? edit_user_path(@user) : profile_edit_path %></p>
 </div>
 
 <% unless @user.orders.empty? %>

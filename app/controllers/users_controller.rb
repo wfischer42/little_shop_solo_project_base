@@ -32,6 +32,27 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    render file: 'errors/not_found', status: 404 if current_user.nil?
+    if current_user && params[:id]
+      if current_admin? || (current_user.id == params[:id].to_i)
+        @user = User.find(params[:id])
+        if @user.update(user_params)
+          flash[:success] = 'Profile data was successfully updated.'
+          redirect_to current_admin? ? user_path(@user) : profile_path
+        else
+          render :edit
+        end
+      else
+        # :nocov:
+        # this can't be tested with capybara, it would require a user to manually send a put/patch
+        # to a user's edit path, which capybara cannot emulate.
+        render file: 'errors/not_found', status: 404
+        # :nocov:
+      end
+    end
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save

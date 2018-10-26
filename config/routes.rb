@@ -16,11 +16,12 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:index, :new, :show]
   resources :items, only: [:index, :new]
-  resources :users, only: [:index, :new, :create, :edit, :show] do 
+  resources :users, only: [:index, :new, :create, :edit, :show, :update] do 
     # admins go here
     resources :orders, only: [:index]
   end
   # users go here to see their orders
+  get '/profile/edit', to: 'users#edit'
   get '/profile/orders', to: 'orders#index'
   # merchants go here to see their orders
   get '/dashboard/orders', to: 'orders#index'
