@@ -32,6 +32,8 @@ describe 'Site Navigation' do
 
       expect(page).to have_link("Log out")
 
+      expect(page).to have_content("Logged in as #{user.name}")
+
       click_link 'Profile'
       expect(current_path).to eq(profile_path)
       click_link 'Orders'

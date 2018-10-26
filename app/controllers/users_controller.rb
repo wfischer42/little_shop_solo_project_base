@@ -4,11 +4,53 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
+    if request.fullpath == '/profile'
+      render file: 'errors/not_found', status: 404 unless current_user
+      @user = current_user
+    else # '/users/:id
+      if current_admin?
+        @user = User.find(params[:id])
+      else
+        render file: 'errors/not_found', status: 404
+      end
+    end
   end
 
   def new
     @user = User.new
+  end
+
+  def edit
+    render file: 'errors/not_found', status: 404 if current_user.nil?
+    if current_user
+      @user = current_user
+      if current_admin? && params[:id]
+        @user = User.find(params[:id])
+      elsif current_user && params[:id] && current_user.id != params[:id]
+        render file: 'errors/not_found', status: 404
+      end
+    end
+  end
+
+  def update
+    render file: 'errors/not_found', status: 404 if current_user.nil?
+    if current_user && params[:id]
+      if current_admin? || (current_user.id == params[:id].to_i)
+        @user = User.find(params[:id])
+        if @user.update(user_params)
+          flash[:success] = 'Profile data was successfully updated.'
+          redirect_to current_admin? ? user_path(@user) : profile_path
+        else
+          render :edit
+        end
+      else
+        # :nocov:
+        # this can't be tested with capybara, it would require a user to manually send a put/patch
+        # to a user's edit path, which capybara cannot emulate.
+        render file: 'errors/not_found', status: 404
+        # :nocov:
+      end
+    end
   end
 
   def create
@@ -25,6 +67,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :password, :name, :address, :city, :state, :zip)
+      params.require(:user).permit(:email, :password, :password_confirmation, :name, :address, :city, :state, :zip)
     end
 end

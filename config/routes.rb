@@ -14,9 +14,23 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show'
   get '/dashboard', to: 'dashboard#show'
 
-  resources :orders, only: [:index, :new]
+  resources :orders, only: [:index, :new, :show]
   resources :items, only: [:index, :new]
-  resources :users, only: [:index, :new, :create, :edit, :destroy]
+  resources :users, only: [:index, :new, :create, :edit, :show, :update] do 
+    # admins go here
+    resources :orders, only: [:index]
+  end
+  # users go here to see their orders
+  get '/profile/edit', to: 'users#edit'
+  get '/profile/orders', to: 'orders#index'
+  # merchants go here to see their orders
+  get '/dashboard/orders', to: 'orders#index'
+
   get '/merchants', to: 'merchants#index'
   get '/merchants/:id', to: 'merchants#show'
+
+  # custom error pages
+  get "/404", to: "errors#not_found"
+  get "/422", to: "errors#unacceptable"
+  get "/500", to: "errors#internal_error"
 end
