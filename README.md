@@ -28,9 +28,18 @@ Students will be put into 3 or 4 person groups to complete the project.
 - must use good GitHub branching, team code reviews via GitHub comments, and use of a project planning tool like waffle.io
 - must include a thorough README to describe their project
 
+## Permitted
+
+- use FactoryBot to speed up your test development
+- use "rails generators" to speed up your app development
+
 ## Not Permitted
 
 - do not use JavaScript for pagination or sorting controls
+
+## Permission
+
+- if there is a specific gem you'd like to use in the project, please get permission from your instructors first
 
 ---
 
@@ -57,7 +66,7 @@ Disabled content should also be restricted from showing up in the statistics pag
 ### Navigation
 
 ```
-1. [ ] done
+1. [x] done
 
 As a visitor
 I see a navigation bar
@@ -72,7 +81,7 @@ Next to the shopping cart link I see a count of the items in my cart
 ```
 
 ```
-2. [ ] done
+2. [x] done
 
 As a registered user
 I see the same links as a visitor
@@ -86,7 +95,7 @@ I also see text that says "Logged in as Ian Douglas" (or whatever my name is)
 ```
 
 ```
-3. [ ] done
+3. [x] done
 
 As a merchant user
 I see the same links as a registered user
@@ -95,7 +104,7 @@ Plus the following links
 ```
 
 ```
-4. [ ] done
+4. [x] done
 
 As an admin user
 I see the same links as a registered user
@@ -107,7 +116,7 @@ Plus the following links
 ### "User" CRUD
 
 ```
-5. [ ] done
+5. [x] done
 
 As a visitor
 When I click on the 'register' link in the nav bar
@@ -130,7 +139,7 @@ I see a flash message indicating that I am now registered and logged in
 ```
 
 ```
-6. [ ] done
+6. [x] done
 
 As a visitor
 When I visit the user registration page
@@ -143,19 +152,18 @@ I see a flash message telling me the email address is already in use
 ```
 
 ```
-7. [ ] done
+7. [x] done
 
 As a registered user, merchant, or admin
 When I visit my own profile page
 Then I see all of my profile data on the page except my password
 And I see a link to edit my profile data
-I also see statistics about my user account
 If my account has ordered items
 Then I also see a link to my orders page ("/orders")
 ```
 
 ```
-8. [ ] done
+8. [x] done
 
 As a registered user, merchant, or admin
 When I visit my profile page
@@ -172,7 +180,7 @@ And I see my updated information
 ```
 
 ```
-9. [ ] done
+9. [x] done
 
 As a registered user, merchant, or admin
 When I attempt to edit my profile data
@@ -185,7 +193,7 @@ And I see a flash message telling me that email address is already in use
 ```
 
 ```
-10. [ ] done
+10. [x] done
 
 As an admin user
 When I visit the user index page ("/users")
