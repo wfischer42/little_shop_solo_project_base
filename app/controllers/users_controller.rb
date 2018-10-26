@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def index
+    render file: 'errors/not_found', status: 404 unless current_admin?
     @users = User.all
   end
 

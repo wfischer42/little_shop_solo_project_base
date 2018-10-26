@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     # admins go here
     resources :orders, only: [:index]
   end
+  patch '/users/:id/enable', to: 'users#update'
+  patch '/users/:id/disable', to: 'users#update'
+  
   # users go here to see their orders
   get '/profile/edit', to: 'users#edit'
   get '/profile/orders', to: 'orders#index'

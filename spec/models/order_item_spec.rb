@@ -20,7 +20,7 @@ RSpec.describe OrderItem, type: :model do
     it '.subtotal' do
       order_item = create(:order_item)
       # binding.pry
-      expect(order_item.subtotal).to eq(3)
+      expect(order_item.subtotal).to eq(12.0)
     end
   end
 end

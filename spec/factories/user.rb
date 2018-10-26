@@ -1,58 +1,58 @@
 FactoryBot.define do
   factory :user, class: User do
-    email { |n| "user_#{n}@gmail.com" }
-    password { |n| "Password #{n}" }
-    name { |n| "Name #{n}" }
-    address { |n| "Address #{n}" }
-    city { |n| "City #{n}" }
-    state { |n| "State #{n}" }
-    zip { |n| "Zip #{n}" }
+    sequence(:email) { |n| "user_#{n}@gmail.com" }
+    sequence(:password) { |n| "Password #{n}" }
+    sequence(:name) { |n| "Name #{n}" }
+    sequence(:address) { |n| "Address #{n}" }
+    sequence(:city) { |n| "City #{n}" }
+    sequence(:state) { |n| "State #{n}" }
+    sequence(:zip) { |n| "Zip #{n}" }
     role { 0 }
     active { true }
   end
   factory :inactive_user, parent: :user do
-    email { |n| "user_#{n}@gmail.com" }
-    password { |n| "Password #{n}" }
-    name { |n| "Name #{n}" }
-    address { |n| "Address #{n}" }
-    city { |n| "City #{n}" }
-    state { |n| "State #{n}" }
-    zip { |n| "Zip #{n}" }
+    sequence(:email) { |n| "inactive_user_#{n}@gmail.com" }
+    sequence(:password) { |n| "Password #{n}" }
+    sequence(:name) { |n| "Name #{n}" }
+    sequence(:address) { |n| "Address #{n}" }
+    sequence(:city) { |n| "City #{n}" }
+    sequence(:state) { |n| "State #{n}" }
+    sequence(:zip) { |n| "Zip #{n}" }
     role { 0 }
     active { false }
   end
 
   factory :merchant, parent: :user do
-    email { |n| "merchant_#{n}@gmail.com" }
-    password { |n| "Password #{n}" }
-    name { |n| "Name #{n}" }
-    address { |n| "Address #{n}" }
-    city { |n| "City #{n}" }
-    state { |n| "State #{n}" }
-    zip { |n| "Zip #{n}" }
+    sequence(:email) { |n| "merchant_#{n}@gmail.com" }
+    sequence(:password) { |n| "Password #{n}" }
+    sequence(:name) { |n| "Name #{n}" }
+    sequence(:address) { |n| "Address #{n}" }
+    sequence(:city) { |n| "City #{n}" }
+    sequence(:state) { |n| "State #{n}" }
+    sequence(:zip) { |n| "Zip #{n}" }
     role { 1 }
     active { true }
   end
   factory :inactive_merchant, parent: :user do
-    email { |n| "merchant_#{n}@gmail.com" }
-    password { |n| "Password #{n}" }
-    name { |n| "Name #{n}" }
-    address { |n| "Address #{n}" }
-    city { |n| "City #{n}" }
-    state { |n| "State #{n}" }
-    zip { |n| "Zip #{n}" }
+    sequence(:email) { |n| "inactive_merchant_#{n}@gmail.com" }
+    sequence(:password) { |n| "Password #{n}" }
+    sequence(:name) { |n| "Name #{n}" }
+    sequence(:address) { |n| "Address #{n}" }
+    sequence(:city) { |n| "City #{n}" }
+    sequence(:state) { |n| "State #{n}" }
+    sequence(:zip) { |n| "Zip #{n}" }
     role { 1 }
     active { false }
   end
 
   factory :admin, parent: :user do
-    email { |n| "admin_#{n}@gmail.com" }
-    password { |n| "Password #{n}" }
-    name { |n| "Admin #{n}" }
-    address { |n| "Address #{n}" }
-    city { |n| "City #{n}" }
-    state { |n| "State #{n}" }
-    zip { |n| "Zip #{n}" }
+    sequence(:email) { |n| "admin_#{n}@gmail.com" }
+    sequence(:password) { |n| "Password #{n}" }
+    sequence(:name) { |n| "Admin #{n}" }
+    sequence(:address) { |n| "Address #{n}" }
+    sequence(:city) { |n| "City #{n}" }
+    sequence(:state) { |n| "State #{n}" }
+    sequence(:zip) { |n| "Zip #{n}" }
     role { 2 }
     active { true }
   end
