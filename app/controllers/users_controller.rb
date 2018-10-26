@@ -4,11 +4,32 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
+    if request.fullpath == '/profile'
+      render file: 'errors/not_found', status: 404 unless current_user
+      @user = current_user
+    else # '/users/:id
+      if current_admin?
+        @user = User.find(params[:id])
+      else
+        render file: 'errors/not_found', status: 404
+      end
+    end
   end
 
   def new
     @user = User.new
+  end
+
+  def edit
+    render file: 'errors/not_found', status: 404 if current_user.nil?
+    if current_user
+      @user = current_user
+      if current_admin? && params[:id]
+        @user = User.find(params[:id])
+      elsif current_user && params[:id] && current_user.id != params[:id]
+        render file: 'errors/not_found', status: 404
+      end
+    end
   end
 
   def create
