@@ -18,7 +18,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+      session[:user_id] = @user.id
+      redirect_to profile_path, notice: 'Welcome to the site!'
     else
       render :new
     end
