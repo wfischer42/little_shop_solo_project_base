@@ -19,4 +19,9 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :new, :create, :edit, :destroy]
   get '/merchants', to: 'merchants#index'
   get '/merchants/:id', to: 'merchants#show'
+
+  # custom error pages
+  get "/404", to: "errors#not_found"
+  get "/422", to: "errors#unacceptable"
+  get "/500", to: "errors#internal_error"
 end

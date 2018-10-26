@@ -141,6 +141,24 @@
         null,
         null
       ],
+      "/Users/id/src/turing/mod2/projects/little_shop_v2/spec/features/users/show_spec.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null
+      ],
       "/Users/id/src/turing/mod2/projects/little_shop_v2/spec/models/item_spec.rb": [
         1,
         null,
@@ -291,51 +309,6 @@
         null,
         null
       ],
-      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/welcome_controller.rb": [
-        1,
-        1,
-        null,
-        null
-      ],
-      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/application_controller.rb": [
-        1,
-        1,
-        null,
-        1,
-        null,
-        1,
-        41,
-        null,
-        null,
-        1,
-        11,
-        null,
-        null
-      ],
-      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/items_controller.rb": [
-        1,
-        1,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/merchants_controller.rb": [
-        1,
-        1,
-        null,
-        null
-      ],
-      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/cart_controller.rb": [
-        1,
-        1,
-        null,
-        null
-      ],
       "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/session_controller.rb": [
         1,
         1,
@@ -354,6 +327,21 @@
         1,
         1,
         1,
+        null,
+        null
+      ],
+      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/application_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        41,
+        null,
+        null,
+        1,
+        11,
         null,
         null
       ],
@@ -389,6 +377,36 @@
         null,
         null
       ],
+      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/welcome_controller.rb": [
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/items_controller.rb": [
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/merchants_controller.rb": [
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/cart_controller.rb": [
+        1,
+        1,
+        null,
+        null
+      ],
       "/Users/id/src/turing/mod2/projects/little_shop_v2/app/controllers/dashboard_controller.rb": [
         1,
         1,
@@ -408,6 +426,6 @@
         null
       ]
     },
-    "timestamp": 1540535063
+    "timestamp": 1540535735
   }
 }
