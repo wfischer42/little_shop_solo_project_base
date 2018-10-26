@@ -14,15 +14,16 @@ describe 'Registration and Session Management' do
       fill_in :user_city, with: 'City'
       fill_in :user_state, with: 'State'
       fill_in :user_zip, with: 'Zip'
-
       click_button 'Create User'
-  
+
+      expect(current_path).to eq(profile_path)
       expect(page).to have_content(email)
     end
 
     it 'anonymous visitor fails registration because it was blank' do
       visit new_user_path
       click_button 'Create User'
+
       expect(current_path).to eq(users_path)
       expect(page).to have_button("Create User")
     end
@@ -38,8 +39,8 @@ describe 'Registration and Session Management' do
       fill_in :user_city, with: 'City'
       fill_in :user_state, with: 'State'
       fill_in :user_zip, with: 'Zip'
-
       click_button 'Create User'
+
       expect(current_path).to eq(users_path)
       expect(page).to have_button("Create User")
     end
@@ -58,6 +59,7 @@ describe 'Registration and Session Management' do
       fill_in :email, with: @email
       fill_in :password, with: @password
       click_button 'Log in'
+
       expect(current_path).to eq(profile_path)
       expect(page).to have_content(@email)
     end
@@ -69,6 +71,7 @@ describe 'Registration and Session Management' do
       fill_in :email, with: @username
       fill_in :password, with: 'bad password'
       click_button 'Log in'
+
       expect(current_path).to eq(login_path)
       expect(page).to have_button("Log in")
       expect(page).to_not have_content(@email)
@@ -77,6 +80,7 @@ describe 'Registration and Session Management' do
     it 'should fail if credentials are empty' do
       visit login_path
       click_button 'Log in'
+
       expect(current_path).to eq(login_path)
       expect(page).to have_button("Log in")
       expect(page).to_not have_content(@email)
@@ -94,9 +98,11 @@ describe 'Registration and Session Management' do
       fill_in :email, with: @email
       fill_in :password, with: @password
       click_button 'Log in'
+
       expect(current_path).to eq(profile_path)
 
       click_link 'Log out'
+
       expect(current_path).to eq(root_path)
       expect(page).to_not have_content("Log out")
       expect(page).to have_content("Log in")
