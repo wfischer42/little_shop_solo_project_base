@@ -204,7 +204,7 @@ I see an "enable" button next to any users whose accounts are disabled
 ```
 
 ```
-11. [ ] done
+11. [x] done
 
 As an admin user
 When I visit the user index page
@@ -216,7 +216,7 @@ This user cannot log in
 ```
 
 ```
-12. [ ] done
+12. [x] done
 
 As an admin user
 When I visit the user index page
@@ -228,7 +228,7 @@ This user can now log in
 ```
 
 ```
-13. [ ] done
+13. [x] done
 
 As an admin user
 When I visit the user index page
@@ -241,7 +241,7 @@ And I see a link to edit their profile data
 ```
 
 ```
-14. [ ] done
+14. [x] done
 
 As an admin user
 When I visit a user's profile page ("/users/5")

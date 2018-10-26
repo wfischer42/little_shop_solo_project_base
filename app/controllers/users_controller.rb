@@ -38,11 +38,23 @@ class UsersController < ApplicationController
     if current_user && params[:id]
       if current_admin? || (current_user.id == params[:id].to_i)
         @user = User.find(params[:id])
-        if @user.update(user_params)
+
+        if current_admin? && params[:toggle]
+          if params[:toggle] == 'enable'
+            @user.active = true
+          elsif params[:toggle] == 'disable'
+            @user.active = false
+          end
+          @user.save 
           flash[:success] = 'Profile data was successfully updated.'
-          redirect_to current_admin? ? user_path(@user) : profile_path
+          redirect_to users_path
         else
-          render :edit
+          if @user.update(user_params)
+            flash[:success] = 'Profile data was successfully updated.'
+            redirect_to current_admin? ? user_path(@user) : profile_path
+          else
+            render :edit
+          end
         end
       else
         # :nocov:

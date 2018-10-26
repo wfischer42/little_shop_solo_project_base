@@ -5,8 +5,13 @@ class SessionController < ApplicationController
   def create 
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
-      redirect_to profile_path
+      if user.active?
+        session[:user_id] = user.id
+        redirect_to profile_path
+      else
+        flash[:error] = 'Your account is disabled'
+        render :new
+      end
     else
       render :new
     end
