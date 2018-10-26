@@ -23,8 +23,7 @@ describe 'Site Navigation' do
   context 'as a registered user' do 
     it 'all links work' do 
       user = create(:user)
-      allow_any_instance_of(ApplicationController).to \
-        receive(:current_user).and_return(user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       visit root_path
 
@@ -36,15 +35,14 @@ describe 'Site Navigation' do
       click_link 'Profile'
       expect(current_path).to eq(profile_path)
       click_link 'Orders'
-      expect(current_path).to eq(profile_orders_path)
+      expect(current_path).to eq(orders_path)
     end
   end
 
   context 'as a merchant' do 
     xit 'all links work' do 
       merchant = create(:merchant)
-      allow_any_instance_of(ApplicationController).to \
-        receive(:current_user).and_return(merchant)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
         visit root_path
 
@@ -56,8 +54,7 @@ describe 'Site Navigation' do
   context 'as an admin' do 
     xit 'all links work' do 
       admin = create(:admin)
-      allow_any_instance_of(ApplicationController).to \
-        receive(:current_user).and_return(admin)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
       visit root_path
 
