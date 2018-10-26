@@ -4,11 +4,13 @@ describe 'Registration and Session Management' do
   describe 'Registration' do
     it 'anonymous visitor registers properly' do
       email = 'fred@gmail.com'
+      password = 'test1234'
       visit register_path
   
       expect(current_path).to eq(register_path)
       fill_in :user_email, with: email
-      fill_in :user_password, with: 'test1234'
+      fill_in :user_password, with: password
+      fill_in :user_password_confirmation, with: password
       fill_in :user_name, with: 'Name'
       fill_in :user_address, with: 'Address'
       fill_in :user_city, with: 'City'
@@ -19,30 +21,53 @@ describe 'Registration and Session Management' do
       expect(current_path).to eq(profile_path)
       expect(page).to have_content(email)
     end
+    describe 'anonymous visitor fails registration' do
+      scenario 'because form was blank' do
+        visit new_user_path
+        click_button 'Create User'
 
-    it 'anonymous visitor fails registration because it was blank' do
-      visit new_user_path
-      click_button 'Create User'
+        expect(current_path).to eq(users_path)
+        expect(page).to have_content('7 errors prohibited this user from being saved')
+      end
 
-      expect(current_path).to eq(users_path)
-      expect(page).to have_button("Create User")
-    end
+      it 'because password confirmation was wrong' do
+        email = 'fred@gmail.com'
+        password = 'test1234'
+        visit register_path
+    
+        expect(current_path).to eq(register_path)
+        fill_in :user_email, with: email
+        fill_in :user_password, with: password
+        fill_in :user_password_confirmation, with: 'something else'
+        fill_in :user_name, with: 'Name'
+        fill_in :user_address, with: 'Address'
+        fill_in :user_city, with: 'City'
+        fill_in :user_state, with: 'State'
+        fill_in :user_zip, with: 'Zip'
+        click_button 'Create User'
 
-    it 'anonymous visitor fails registration because user existed' do
-      email = 'fred@gmail.com'
-      create(:user, email: email)
-      visit new_user_path
-      fill_in :user_email, with: email
-      fill_in :user_password, with: '9876test'
-      fill_in :user_name, with: 'Name'
-      fill_in :user_address, with: 'Address'
-      fill_in :user_city, with: 'City'
-      fill_in :user_state, with: 'State'
-      fill_in :user_zip, with: 'Zip'
-      click_button 'Create User'
+        expect(current_path).to eq(users_path)
+        expect(page).to have_content("Password confirmation doesn't match Password")
+      end
 
-      expect(current_path).to eq(users_path)
-      expect(page).to have_button("Create User")
+      it 'because user already existed' do
+        email = 'fred@gmail.com'
+        password = '9876test'
+        create(:user, email: email)
+        visit new_user_path
+        fill_in :user_email, with: email
+        fill_in :user_password, with: password
+        fill_in :user_password_confirmation, with: password
+        fill_in :user_name, with: 'Name'
+        fill_in :user_address, with: 'Address'
+        fill_in :user_city, with: 'City'
+        fill_in :user_state, with: 'State'
+        fill_in :user_zip, with: 'Zip'
+        click_button 'Create User'
+
+        expect(current_path).to eq(users_path)
+        expect(page).to have_content('Email has already been taken')
+      end
     end
   end
 
