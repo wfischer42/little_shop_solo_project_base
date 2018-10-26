@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User Edit Page, aka Profile Edit' do
+RSpec.describe 'User Edit Page, aka Profile Edit' do
   before(:each) do
     @email = 'drpepper@gmail.com'
     @password = 'awesomesoda'

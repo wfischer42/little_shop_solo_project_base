@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Site Navigation' do 
+RSpec.describe 'Site Navigation' do 
   context 'as a visitor' do
     it 'all links work' do 
       visit root_path

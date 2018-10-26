@@ -3,7 +3,7 @@ FactoryBot.define do
     user
     status { "pending" }
   end
-  factory :filfilled_order, parent: :order do
+  factory :fulfilled_order, parent: :order do
     user
     status { "fulfilled" }
   end

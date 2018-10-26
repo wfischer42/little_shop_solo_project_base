@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User Index Page, only for admins' do
+RSpec.describe 'User Index Page, only for admins' do
   context 'As an admin user' do
     before(:each) do 
       @admin = create(:admin)

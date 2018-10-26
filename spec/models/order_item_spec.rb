@@ -18,7 +18,12 @@ RSpec.describe OrderItem, type: :model do
 
   describe 'Instance Methods' do 
     it '.subtotal' do
-      order_item = create(:order_item)
+      @user = create(:user)
+      @merchant = create(:merchant)
+      @item_1 = create(:item, user: @merchant)
+      @order_4 = create(:order, user: @user)
+      order_item = create(:order_item, order: @order_4, item: @item_1)
+  
       # binding.pry
       expect(order_item.subtotal).to eq(12.0)
     end

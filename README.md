@@ -251,7 +251,7 @@ Except I am returned to the show page path of "/users/5" when I am finished
 ```
 
 ```
-15. [ ] done
+15. [x] done
 
 As an admin user
 When I visit a user's profile page
@@ -264,7 +264,7 @@ And I only see that user's orders
 ### "Session" CRUD
 
 ```
-16. [ ] done
+16. [x] done
 
 As a visitor
 When I visit the login path
@@ -275,7 +275,7 @@ And I see a flash message that I am logged in
 ```
 
 ```
-17. [ ] done
+17. [x] done
 
 As a registered user, merchant, or admin
 When I visit the login path
@@ -284,7 +284,7 @@ And I see a flash message that tells me I am already logged in
 ```
 
 ```
-18. [ ] done
+18. [x] done
 
 As a registered user, merchant, or admin
 When I visit the logout path

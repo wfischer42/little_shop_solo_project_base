@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :item do
-    user
+    association :user, factory: :merchant
     sequence(:name) { |n| "Name #{n}" }
     sequence(:description) { |n| "Description #{n}" }
     sequence(:image) { |n| "Image #{n}" }
@@ -10,7 +10,7 @@ FactoryBot.define do
   end
 
   factory :Inactive_item, parent: :item do
-    user
+    association :user, factory: :merchant
     sequence(:name) { |n| "Name #{n}" }
     sequence(:description) { |n| "Description #{n}" }
     sequence(:image) { |n| "Image #{n}" }

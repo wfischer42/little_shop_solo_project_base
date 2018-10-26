@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Admin-only user management' do 
+RSpec.describe 'Admin-only user management' do 
   before(:each) do
     @admin = create(:admin)
     @active_user = create(:user)

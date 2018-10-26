@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Registration and Session Management' do 
+RSpec.describe 'Registration and Session Management' do 
   describe 'Registration' do
     it 'anonymous visitor registers properly' do
       email = 'fred@gmail.com'
@@ -89,6 +89,14 @@ describe 'Registration and Session Management' do
       expect(page).to have_content("Logged in as #{@user.name}")
       expect(page).to have_content(@email)
     end
+        
+    it 'should redirect with a message if already logged in' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      visit login_path
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content('You are already logged in')
+    end
+
     describe 'logging in did not succeed' do
       scenario 'because credentials are incorrect' do
         visit root_path
@@ -133,6 +141,7 @@ describe 'Registration and Session Management' do
       expect(current_path).to eq(root_path)
       expect(page).to_not have_content("Log out")
       expect(page).to have_content("Log in")
+      expect(page).to have_content("You are logged out")
     end
   end
 end

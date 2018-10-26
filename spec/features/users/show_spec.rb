@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User Show Page, aka Profile Page' do
+RSpec.describe 'User Show Page, aka Profile Page' do
   before(:each) do
     @user = create(:user)
   end

@@ -41,6 +41,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov'
   gem 'factory_bot_rails'
+  gem 'database_cleaner'
 
   # needed for Ian's system at home only
   gem 'execjs'
