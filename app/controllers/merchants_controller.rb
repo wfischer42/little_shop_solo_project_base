@@ -1,4 +1,5 @@
 class MerchantsController < ApplicationController
-  def index 
+  def index
+    @merchants = User.where(role: :merchant).order(:name)
   end
 end

@@ -47,7 +47,11 @@ class UsersController < ApplicationController
           end
           @user.save 
           flash[:success] = 'Profile data was successfully updated.'
-          redirect_to users_path
+          if @user.merchant?
+            redirect_to merchants_path
+          else
+            redirect_to users_path
+          end
         else
           if @user.update(user_params)
             flash[:success] = 'Profile data was successfully updated.'

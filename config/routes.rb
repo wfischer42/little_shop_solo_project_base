@@ -29,8 +29,7 @@ Rails.application.routes.draw do
   # merchants go here to see their orders
   get '/dashboard/orders', to: 'orders#index'
 
-  get '/merchants', to: 'merchants#index'
-  get '/merchants/:id', to: 'merchants#show'
+  resources :merchants, only: [:index, :show, :update]
 
   # custom error pages
   get "/404", to: "errors#not_found"

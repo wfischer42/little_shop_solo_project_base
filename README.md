@@ -306,7 +306,7 @@ Then I also see a link to my merchant orders ("/dashboard/orders")
 ```
 
 ```
-20. [ ] done
+20. [x] done
 
 As an admin user
 When I visit the merchants index page ("/merchants")
@@ -317,7 +317,7 @@ I see an "enable" button next to any merchants whose accounts are disabled
 ```
 
 ```
-21. [ ] done
+21. [x] done
 
 As an admin user
 When I visit the merchant index page
@@ -329,7 +329,7 @@ This merchant cannot log in
 ```
 
 ```
-22. [ ] done
+22. [x] done
 
 As an admin user
 When I visit the merchant index page
