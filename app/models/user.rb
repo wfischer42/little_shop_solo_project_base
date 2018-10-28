@@ -8,4 +8,12 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   enum role: %w(user merchant admin)
+
+  def merchant_orders(status=nil)
+    if status.nil?
+      Order.distinct.joins(:items).where('items.user_id=?', self.id)
+    else
+      Order.distinct.joins(:items).where('items.user_id=? AND orders.status=?', self.id, status)
+    end
+  end
 end

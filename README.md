@@ -297,7 +297,7 @@ Any items I had in my shopping cart are deleted
 ### "Merchant" CRUD
 
 ```
-19. [ ] done
+19. [x] done
 
 As a merchant user
 When I visit my dashboard ("/dashboard)

@@ -8,7 +8,8 @@ Sorry there are no orders yet.
 <table>
   <thead>
     <tr>
-      <% if current_admin? %>
+      <% if current_admin? || current_user.merchant?%>
+      <th>ID</th>
       <th>User</th>
       <% end %>
       <th>Status</th>
@@ -21,7 +22,8 @@ Sorry there are no orders yet.
   <tbody>
     <% @orders.each do |order| %>
       <tr id="order-<%= order.id %>">
-        <% if current_admin? %>
+        <% if current_admin? || current_user.merchant?%>
+        <td>Order #<%= order.id %></td>
         <td><%= order.user.email %></td>
         <% end %>
         <td><%= order.status %></td>

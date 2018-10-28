@@ -6,6 +6,8 @@ class OrdersController < ApplicationController
       else
         @orders = current_user.orders.where.not(status: :disabled)
       end
+    elsif request.fullpath == "/dashboard/orders"
+      @orders = current_user.merchant_orders(:pending)
     elsif params[:user_id] && request.fullpath == "/users/#{params[:user_id]}/orders"
       @user = User.find(params[:user_id])
       if @user == current_user

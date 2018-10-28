@@ -1,0 +1,9 @@
+<h1>Merchant Dashboard</h1>
+
+<% if @merchant && @merchant.merchant_orders.count > 0 %>
+  <% if currnet_admin? %>
+  <%= link_to "Merchant Orders", merchant_orders_path(@merchant) %>
+  <% elsif current_user.merchant? %>
+  <%= link_to "Merchant Orders", dashboard_orders_path %>
+  <% end %>
+<% end %>
