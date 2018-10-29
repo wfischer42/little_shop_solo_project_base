@@ -47,5 +47,14 @@ RSpec.describe 'Items Index' do
         expect(page).to have_button("Add to Cart")
       end
     end
+    describe 'add item to cart' do 
+      it 'should show all item content plus a button to add to cart' do 
+        visit item_path(@active_item)
+        expect(page).to have_content("Cart: 0")
+        click_button("Add to Cart")
+        expect(page).to have_content("Cart: 1")
+        expect(page).to have_content("Item has been added to your cart")
+      end
+    end
   end
 end

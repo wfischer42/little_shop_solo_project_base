@@ -2,7 +2,8 @@
   <%= link_to 'Home', root_path %>
   <%= link_to 'Items', items_path %>
   <%= link_to 'Merchants', merchants_path %>
-  <%= link_to 'Cart', cart_path %>
+  <%= link_to 'Cart', carts_path %>
+  Cart: <%= @cart.total_count %>
 
   <% if current_user.nil? %>
     <%= link_to 'Log in', login_path %>

@@ -582,7 +582,7 @@ I also see a link to add this item to my cart
 ### "Cart" CRUD
 
 ```
-41. [ ] done
+41. [x] done
 
 As any kind of user on the system
 When I visit an item's show page from the items catalog
