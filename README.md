@@ -493,7 +493,7 @@ If I left the image field blank, I see a placeholder image for the thumbnail
 ```
 
 ```
-35. [ ] done
+35. [x] done
 
 As a merchant
 When I try to add a new item
@@ -504,13 +504,13 @@ All fields are re-populated with my previous data
 ```
 
 ```
-36. [ ] done
+36. [x] done
 
 As a merchant
 When I visit my items page
 And I click the edit button or link next to any item
 Then I am taken to a form similar to the 'new item' form
-My URI route will be something like "/items/15/edit" (if the item's ID was 15)
+My URI route will be something like "/merchants/3/items/15/edit" (if the item's ID was 15)
 The form is re-populated with all of this item's information
 I can change any information, but all of the rules for adding a new item still apply:
 - name and description cannot be blank
@@ -524,7 +524,7 @@ If I left the image field blank, I see a placeholder image for the thumbnail
 ```
 
 ```
-37. [ ] done
+37. [x] done
 
 As a merchant
 When I try to edit an existing item
@@ -535,7 +535,7 @@ All fields are re-populated with my previous data
 ```
 
 ```
-38. [ ] done
+38. [x] done
 
 As an admin user
 When I visit a merchant's profile page

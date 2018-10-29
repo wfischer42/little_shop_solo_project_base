@@ -71,27 +71,8 @@ RSpec.describe 'Merchant Items' do
         end
       end
       it 'should allow me to add a new item' do 
-=begin
-As a merchant
-When I visit my items page
-And I click on the link to add a new item
-My URI route should be "/dashboard/items/new"
-I see a form where I can add new information about an item, including:
-- the name of the item, which cannot be blank
-- a description for the item, which cannot be blank
-- a thumbnail image URL string, which CAN be left blank
-- a price which must be greater than $0.00
-- my current inventory count of this item which is 0 or greater
-When I submit valid information and save the form
-I am taken back to my items page
-I see a flash message indicating my new item is saved
-I see the new item on the page, and it is enabled and available for sale
-If I left the image field blank, I see a placeholder image for the thumbnail
-=end
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
-
         visit dashboard_items_path
-
         click_link "Add New Item"
 
         fill_in :item_name, with: 'New Item Name'
@@ -114,7 +95,7 @@ If I left the image field blank, I see a placeholder image for the thumbnail
           expect(page).to have_button("Disable Item")
         end
       end
-      it 'should allow me to add a new item with a placehold image' do 
+      it 'should allow me to add a new item with a placeholder image' do 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
         visit dashboard_items_path
         click_link "Add New Item"
@@ -131,12 +112,57 @@ If I left the image field blank, I see a placeholder image for the thumbnail
           expect(page.find("#item-image-#{item.id}")['src']).to have_content('placeholder.jpg')
         end
       end
-      it 'should allow me to add a new item' do 
+      it 'should block me from adding a new item if form is blank' do 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
         visit dashboard_items_path
         click_link "Add New Item"
         click_button 'Create Item' # no data submitted
         expect(current_path).to eq(merchant_items_path(@merchant))
+        expect(page).to have_content("Name can't be blank")
+        expect(page).to have_content("Description can't be blank")
+        expect(page).to have_content("Price can't be blank")
+        expect(page).to have_content("Price is not a number")
+        expect(page).to have_content("Inventory can't be blank")
+        expect(page).to have_content("Inventory is not a number")
+      end
+      it 'should allow me to add a new item' do 
+        item = create(:item, user: @merchant)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+        visit dashboard_items_path
+        within "#item-#{item.id}" do 
+          click_link "Edit Item"
+        end
+
+        fill_in :item_name, with: 'New Item Name'
+        fill_in :item_description, with: 'hottest item of 2018'
+        fill_in :item_image, with: 'new-image.jpg'
+        fill_in :item_price, with: 5
+        fill_in :item_inventory, with: 100
+        click_button 'Update Item'
+
+        expect(current_path).to eq dashboard_items_path
+        item = Item.find(item.id) # fetch from db
+        within "#item-#{item.id}" do 
+          expect(page).to have_content('New Item Name')
+          expect(page.find("#item-image-#{item.id}")['src']).to have_content('new-image.jpg')
+          expect(page).to have_content("Price: 5")
+          expect(page).to have_content("Inventory: 100")
+        end
+      end
+      it 'should block me from editing a new item if require fields are blank' do 
+        item = create(:item, user: @merchant)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+        visit dashboard_items_path
+        within "#item-#{item.id}" do 
+          click_link "Edit Item"
+        end
+        fill_in :item_name, with: ''
+        fill_in :item_description, with: ''
+        fill_in :item_price, with: ''
+        fill_in :item_inventory, with: ''
+        click_button 'Update Item'
+
+        expect(current_path).to eq(merchant_item_path(@merchant, item))
         expect(page).to have_content("Name can't be blank")
         expect(page).to have_content("Description can't be blank")
         expect(page).to have_content("Price can't be blank")

@@ -6,6 +6,15 @@ class ItemsController < ApplicationController
   def new 
     @item = Item.new 
     @merchant = User.find(params[:merchant_id])
+    @form_url = merchant_items_path
+  end
+
+  def edit 
+    render file: 'errors/not_found', status: 404 if current_user.nil?
+    @merchant = User.find(params[:merchant_id])
+    render file: 'errors/not_found', status: 404 unless current_admin? || current_user == @merchant
+    @item = Item.find(params[:id])
+    @form_url = merchant_item_path(@merchant, @item)
   end
 
   def create 
@@ -22,6 +31,7 @@ class ItemsController < ApplicationController
       flash[:notice] = "Item created"
       redirect_to current_admin? ? merchant_items_path(@merchant) : dashboard_items_path
     else
+      @form_url = merchant_items_path
       render :new
     end
   end
@@ -29,7 +39,11 @@ class ItemsController < ApplicationController
   def update 
     render file: 'errors/not_found', status: 404 if current_user.nil?
     @merchant = User.find(params[:merchant_id])
-    @item = Item.find(params[:item_id])
+    item_id = :item_id
+    if params[:id]
+      item_id = :id
+    end
+    @item = Item.find(params[item_id])
     render file: 'errors/not_found', status: 404 unless current_admin? || current_user == @merchant
 
     if request.fullpath.split('/')[-1] == 'disable'
@@ -42,6 +56,15 @@ class ItemsController < ApplicationController
       @item.active = true
       @item.save
       redirect_to current_admin? ? merchant_items_path(@merchant) : dashboard_items_path
+    else
+      @item.update(item_params)
+      if @item.save
+        flash[:notice] = "Item updated"
+        redirect_to current_admin? ? merchant_items_path(@merchant) : dashboard_items_path
+      else
+        @form_url = merchant_item_path(@merchant, @item)
+        render :edit
+      end
     end
   end
 
