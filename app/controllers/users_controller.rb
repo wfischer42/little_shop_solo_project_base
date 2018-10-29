@@ -11,6 +11,9 @@ class UsersController < ApplicationController
     else # '/users/:id
       if current_admin?
         @user = User.find(params[:id])
+        if @user.merchant?
+          redirect_to merchant_path(@user.id)
+        end
       else
         render file: 'errors/not_found', status: 404
       end
@@ -44,10 +47,18 @@ class UsersController < ApplicationController
             @user.active = true
           elsif params[:toggle] == 'disable'
             @user.active = false
+          elsif params[:toggle] == 'role'
+            if @user.merchant?
+              @user.role = :user
+            elsif @user.user?
+              @user.role = :merchant
+            end
           end
-          @user.save 
+
+          @user.save
+
           flash[:success] = 'Profile data was successfully updated.'
-          if @user.merchant?
+          if params[:toggle] && params[:toggle] != 'role' && @user.merchant?
             redirect_to merchants_path
           else
             redirect_to users_path

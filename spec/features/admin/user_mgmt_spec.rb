@@ -5,6 +5,7 @@ RSpec.describe 'Admin-only user management' do
     @admin = create(:admin)
     @active_user = create(:user)
     @inactive_user = create(:inactive_user)
+    @active_merchant = create(:merchant)
   end
   it 'allows admin to disable an enabled user account' do
     visit login_path
@@ -57,11 +58,43 @@ RSpec.describe 'Admin-only user management' do
     expect(current_path).to eq(profile_path)
   end
 
-  xit 'allows admin to upgrade a user to a merchant' do
+  it 'allows admin to upgrade a user to a merchant' do
+    visit login_path
+    fill_in :email, with: @admin.email
+    fill_in :password, with: @admin.password
+    click_button 'Log in'
+  
+    visit users_path
 
+    within "#user-#{@active_user.id}" do
+      expect(page).to have_content("#{@active_user.email} User")
+      click_button "Upgrade to Merchant"
+    end
+    expect(current_path).to eq(users_path)
+    within "#user-#{@active_user.id}" do
+      expect(page).to have_content("#{@active_user.email} Merchant")
+      expect(page).to_not have_button("Upgrade to Merchant")
+      expect(page).to have_button("Downgrade to User")
+    end
   end
 
-  xit 'allows admin to downgrade a merchant to a user' do
+  it 'allows admin to downgrade a merchant to a user' do
+    visit login_path
+    fill_in :email, with: @admin.email
+    fill_in :password, with: @admin.password
+    click_button 'Log in'
+  
+    visit users_path
 
+    within "#user-#{@active_merchant.id}" do
+      expect(page).to have_content("#{@active_merchant.email} Merchant")
+      click_button "Downgrade to User"
+    end
+    expect(current_path).to eq(users_path)
+    within "#user-#{@active_merchant.id}" do
+      expect(page).to have_content("#{@active_merchant.email} User")
+      expect(page).to have_button("Upgrade to Merchant")
+      expect(page).to_not have_button("Downgrade to User")
+    end
   end
 end

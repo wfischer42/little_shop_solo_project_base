@@ -89,6 +89,22 @@ RSpec.describe 'User Show Page, aka Profile Page' do
 
         expect(page.status_code).to eq(404)
       end
+      it 'should block access to /dashboard' do
+        order = create(:order, user: @user)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+  
+        visit dashboard_path
+  
+        expect(page.status_code).to eq(404)
+      end
+      it 'should block access to /dashboard' do
+        order = create(:order, user: @user)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+  
+        visit dashboard_path
+  
+        expect(page.status_code).to eq(404)
+      end
     end
     
     context 'as a merchant' do

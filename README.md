@@ -376,7 +376,7 @@ And I only see the orders containing items from this merchant
 ### "MerchantUsers" CRUD
 
 ```
-26. [ ] done
+26. [x] done
 
 As an admin user
 When I visit a user's profile page ("/users/5")
@@ -388,7 +388,7 @@ The next time this user logs in they are now a merchant
 ```
 
 ```
-27. [ ] done
+27. [x] done
 
 As an admin user
 When I visit a merchant's profile page ("/merchants/6")
@@ -400,7 +400,7 @@ The next time this user logs in they are no longer a merchant
 ```
 
 ```
-28. [ ] done
+28. [x] done
 
 As an admin user
 If I visit a profile page for a user, but that user is a merchant
@@ -411,7 +411,7 @@ then I am redirected to "/merchants/7" and see their merchant dashboard page
 ```
 
 ```
-29. [ ] done
+29. [x] done
 
 As an admin user
 If I visit a profile page for a merchant, but that merchant is a regular user
@@ -801,7 +801,7 @@ Except deleting content
 ```
 
 ```
-58. [ ] done
+58. [x] done
 
 As a merchant user
 I can only view my own merchant dashboard
@@ -810,10 +810,10 @@ I can only add/edit/update and enable/disable my own items
 ```
 
 ```
-59. [ ] done
+59. [x] done
 
 As a registered user (who is not an admin, but may be a merchant)
-I can only view my own dashboard
+I can only view my own profile page
 I can only change my own profile data
 I can only cancel my own pending orders
 ```
