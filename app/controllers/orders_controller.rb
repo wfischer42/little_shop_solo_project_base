@@ -17,6 +17,10 @@ class OrdersController < ApplicationController
       else
         render file: 'errors/not_found', status: 404
       end
+    elsif params[:user_id] && request.fullpath == "/merchants/#{params[:user_id]}/orders"
+      render file: 'errors/not_found', status: 404 unless current_admin?
+      @merchant = User.find(params[:user_id])
+      @orders = Order.all
     end
   end
 

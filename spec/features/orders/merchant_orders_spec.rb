@@ -14,6 +14,8 @@ RSpec.describe 'Merchant Orders' do
     @order_2 = create(:fulfilled_order, user: @user)
     create(:order_item, order: @order_2, item: @item_2)
     create(:order_item, order: @order_2, item: @item_3)
+
+    @admin = create(:admin)
   end
 
   context 'merchant user' do 
@@ -40,6 +42,27 @@ RSpec.describe 'Merchant Orders' do
       expect(page).to have_content(@user.email)
       expect(page).to have_content("Order ##{@order_1.id}")
       expect(page).to_not have_content("Order ##{@order_2.id}")
+    end
+  end
+
+  context 'admin user' do
+    it 'sees a link to edit merchant profile data' do 
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+      visit merchant_path(@merchant) 
+ 
+      click_link "Edit Profile Data"
+      expect(current_path).to eq(edit_user_path(@merchant))
+    end
+    it 'sees a link to view dashboard orders if there are any orders' do 
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+      visit merchant_path(@merchant) 
+
+      click_link("Merchant Orders")
+
+      expect(current_path).to eq(merchant_orders_path(@merchant))
+      expect(page).to have_content(@user.email)
+      expect(page).to have_content("Order ##{@order_1.id}")
+      expect(page).to have_content("Order ##{@order_2.id}")
     end
   end
 end

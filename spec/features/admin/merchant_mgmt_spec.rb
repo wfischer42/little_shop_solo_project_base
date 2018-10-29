@@ -5,6 +5,7 @@ RSpec.describe 'Admin-only merchant management' do
     @admin = create(:admin)
     @active_merchant = create(:merchant)
     @inactive_merchant = create(:inactive_merchant)
+    @user = create(:user)
   end
   it 'allows admin to disable an enabled merchant account' do
     visit login_path
@@ -55,5 +56,16 @@ RSpec.describe 'Admin-only merchant management' do
     click_button 'Log in'
     
     expect(current_path).to eq(profile_path)
+  end
+
+  it 'blocks regular users from clicking a merchant name to get to a show page' do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
+    visit merchants_path
+    expect(page).to have_content(@active_merchant.name)
+    expect(page).to_not have_link(@active_merchant.name)
+
+    visit merchant_path(@active_merchant)
+    expect(page.status_code).to eq(404)
   end
 end

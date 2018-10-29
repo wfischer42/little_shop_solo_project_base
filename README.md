@@ -341,7 +341,7 @@ This merchant can now log in
 ```
 
 ```
-23. [ ] done
+23. [x] done
 
 As an admin user
 When I visit the merchant index page
@@ -354,7 +354,7 @@ And I see a link to edit their profile data
 ```
 
 ```
-24. [ ] done
+24. [x] done
 
 As an admin user
 When I visit a merchant's dashboard page ("/merchants/6")
@@ -364,7 +364,7 @@ Except I am returned to the show page path of "/merchants/6" when I am finished
 ```
 
 ```
-25. [ ] done
+25. [x] done
 
 As an admin user
 When I visit a merchant's dashboard page
