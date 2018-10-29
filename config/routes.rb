@@ -28,7 +28,7 @@ end
   end
 
   resources :orders, only: [:index, :show, :new]
-  resources :items, only: [:index, :new]
+  resources :items, only: [:index, :show]
   resources :users, only: [:index, :new, :create, :edit, :show, :update] do 
     # admins go here
     resources :orders, only: [:index]
@@ -41,7 +41,10 @@ end
     # admins go here to see a merchant's orders
     # get '/merchants/:user_id/orders', to: 'orders#index', as: :merchant_orders
     resources :orders, only: [:index]
-    resources :items, only: [:index]
+    resources :items, only: [:index, :new, :edit] do
+      patch 'enable', to: 'items#update'
+      patch 'disable', to: 'items#update'
+    end
   end
   
   # custom error pages

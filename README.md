@@ -424,7 +424,7 @@ then I am redirected to "/users/8" and see their user profile page
 ### "Items" CRUD
 
 ```
-30. [ ] done
+30. [x] done
 
 As a merchant
 When I visit my dashboard page ("/dashboard")
@@ -434,7 +434,7 @@ My URI route should be "/dashboard/items"
 ```
 
 ```
-31. [ ] done
+31. [x] done
 
 As a merchant
 When I visit my items page
