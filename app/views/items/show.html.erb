@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Merchant:</strong>
-  <%= @item.user.name %>
-</p>
-
-<p>
   <strong>Name:</strong>
   <%= @item.name %>
 </p>
@@ -17,7 +12,12 @@
 
 <p>
   <strong>Image:</strong>
-  <img src="<%= @item.image %>" />
+  <img id="item-image-<%= @item.id %>" alt="image for <%= @item.name %>" src="<%= @item.image %>" />
+</p>
+
+<p>
+  <strong>Merchant:</strong>
+  <%= @item.user.name %>
 </p>
 
 <p>
@@ -30,10 +30,7 @@
   <%= @item.inventory %>
 </p>
 
-<p>
-  <strong>Active:</strong>
-  <%= @item.active %>
-</p>
+<%= button_to "Add to Cart", carts_path(item_id: @item.id) %>
 
 <% if current_admin? || current_user == @item.user %>
 <%= link_to 'Edit', edit_merchant_item(@item.user, @item) %> |

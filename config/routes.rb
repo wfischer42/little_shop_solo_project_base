@@ -47,6 +47,8 @@ end
     end
   end
   
+  resources :carts, only: [:create]
+
   # custom error pages
   get "/404", to: "errors#not_found"
   get "/422", to: "errors#unacceptable"

@@ -563,7 +563,7 @@ Each item's name and thumbnail image are links to that item's show page
 ```
 
 ```
-40. [ ] done
+40. [x] done
 
 As any kind of user on the system
 When I visit an item's show page from the items catalog
