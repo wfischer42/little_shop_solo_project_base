@@ -125,7 +125,7 @@ RSpec.describe 'Merchant Items' do
         expect(page).to have_content("Inventory can't be blank")
         expect(page).to have_content("Inventory is not a number")
       end
-      it 'should allow me to add a new item' do 
+      it 'should allow me to edit a new item' do 
         item = create(:item, user: @merchant)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
         visit dashboard_items_path

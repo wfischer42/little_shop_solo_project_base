@@ -548,7 +548,7 @@ All content rules still apply (eg, item name cannot be blank, etc)
 ```
 
 ```
-39. [ ] done
+39. [x] done
 
 As any kind of user on the system
 I can visit the items catalog ("/items")

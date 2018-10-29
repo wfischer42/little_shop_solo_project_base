@@ -1,12 +1,20 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all
+    if current_user && current_user.merchant? || current_admin?
+      @items = Item.all
+    else
+      @items = Item.where(active: true)
+    end
   end
 
   def new 
     @item = Item.new 
     @merchant = User.find(params[:merchant_id])
     @form_url = merchant_items_path
+  end
+
+  def show
+    @item = Item.find(params[:id])
   end
 
   def edit 

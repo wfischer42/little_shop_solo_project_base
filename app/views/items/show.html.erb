@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>User:</strong>
-  <%= @item.user %>
+  <strong>Merchant:</strong>
+  <%= @item.user.name %>
 </p>
 
 <p>
@@ -13,6 +13,11 @@
 <p>
   <strong>Description:</strong>
   <%= @item.description %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <img src="<%= @item.image %>" />
 </p>
 
 <p>
@@ -30,5 +35,7 @@
   <%= @item.active %>
 </p>
 
-<%= link_to 'Edit', edit_item_path(@item) %> |
+<% if current_admin? || current_user == @item.user %>
+<%= link_to 'Edit', edit_merchant_item(@item.user, @item) %> |
+<% end %>
 <%= link_to 'Back', items_path %>

@@ -20,3 +20,12 @@
 <% unless @user.orders.empty? %>
   <p><%= link_to "View Personal Orders", current_admin? ? user_orders_path(@user) : profile_orders_path %>
 <% end %>
+
+<% if current_admin? %>
+  <% if @user.active %>
+  <%= button_to "Disable", user_path(@user), method: :patch, params: { toggle: :disable } %>
+  <% else %>
+  <%= button_to "Enable", user_path(@user), method: :patch, params: { toggle: :enable } %>
+  <% end %>
+  <%= button_to "Upgrade to Merchant", user_path(@user), method: :patch, params: { toggle: :role } %> 
+<% end %>

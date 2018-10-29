@@ -10,3 +10,12 @@
   <%= link_to "Merchant Orders", dashboard_orders_path %>
   <% end %>
 <% end %>
+
+<% if current_admin? %>
+  <% if @merchant.active %>
+  <%= button_to "Disable", user_path(@merchant), method: :patch, params: { toggle: :disable } %>
+  <% else %>
+  <%= button_to "Enable", user_path(@merchant), method: :patch, params: { toggle: :enable } %>
+  <% end %>
+  <%= button_to "Upgrade to Merchant", user_path(@merchant), method: :patch, params: { toggle: :role } %> 
+<% end %>
