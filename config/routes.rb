@@ -41,7 +41,7 @@ end
     # admins go here to see a merchant's orders
     # get '/merchants/:user_id/orders', to: 'orders#index', as: :merchant_orders
     resources :orders, only: [:index]
-    resources :items, only: [:index, :new, :edit] do
+    resources :items, only: [:index, :new, :edit, :create] do
       patch 'enable', to: 'items#update'
       patch 'disable', to: 'items#update'
     end

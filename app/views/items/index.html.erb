@@ -3,7 +3,7 @@
 <h1>Items</h1>
 
 <% if current_user && current_user.merchant? %>
-<%= link_to 'New Item', new_merchant_item_path(current_user) %>
+<%= link_to 'Add New Item', new_merchant_item_path(current_user) %>
 <% end %>
 <table>
   <thead>

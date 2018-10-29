@@ -1,10 +1,10 @@
-<%= form_with(model: item, local: true) do |form| %>
-  <% if item.errors.any? %>
+<%= form_for [@merchant, @item], url: merchant_items_path do |f| %>
+  <% if @item.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
 
       <ul>
-      <% item.errors.full_messages.each do |message| %>
+      <% @item.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,36 +12,31 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :item_user_id %>
+    <%= f.label :name %>
+    <%= f.text_field :name, {id: :item_name, required: true} %>
   </div>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :item_name %>
+    <%= f.label :description %>
+    <%= f.text_field :description, {id: :item_description, required: true} %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description, id: :item_description %>
+    <%= f.label :image %>
+    <%= f.text_field :image, id: :item_image %>
   </div>
 
   <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price, id: :item_price %>
+    <%= f.label :price %>
+    <%= f.number_field :price, {id: :item_price, required: true, min: 0} %>
   </div>
 
   <div class="field">
-    <%= form.label :inventory %>
-    <%= form.number_field :inventory, id: :item_inventory %>
-  </div>
-
-  <div class="field">
-    <%= form.label :active %>
-    <%= form.check_box :active, id: :item_active %>
+    <%= f.label :inventory %>
+    <%= f.number_field :inventory, {id: :item_inventory, required: true, min: 0} %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= f.submit %>
   </div>
 <% end %>

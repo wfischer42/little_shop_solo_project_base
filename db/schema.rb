@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20181026014217) do
     t.string "image"
     t.float "price"
     t.integer "inventory"
-    t.boolean "active", default: false
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_items_on_user_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20181026014217) do
     t.bigint "item_id"
     t.float "price"
     t.integer "quantity"
+    t.boolean "fulfilled", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_order_items_on_item_id"
