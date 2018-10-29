@@ -38,6 +38,38 @@ RSpec.describe 'Merchant Items' do
           expect(page).to have_button("Enable Item")
         end
       end
+      it 'should allow me to disable active items' do
+        item_1 = create(:item, user: @merchant)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+
+        visit dashboard_items_path
+
+        within "#item-#{item_1.id}" do 
+          click_button "Disable Item"
+        end
+        expect(page).to have_content("Item #{item_1.id} is now disabled")
+
+        within "#item-#{item_1.id}" do 
+          expect(page).to_not have_button("Disable Item")
+          expect(page).to have_button("Enable Item")
+        end
+      end
+      it 'should allow me to enable inactive items' do
+        item_1 = create(:inactive_item, user: @merchant)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+
+        visit dashboard_items_path
+
+        within "#item-#{item_1.id}" do 
+          click_button "Enable Item"
+        end
+        expect(page).to have_content("Item #{item_1.id} is now enabled")
+
+        within "#item-#{item_1.id}" do 
+          expect(page).to have_button("Disable Item")
+          expect(page).to_not have_button("Enable Item")
+        end
+      end
     end
   end
 end
