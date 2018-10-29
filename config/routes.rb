@@ -12,28 +12,38 @@ Rails.application.routes.draw do
   # patch '/cart', to: 'cart#update'
   
   get '/profile', to: 'users#show'
-  get '/dashboard', to: 'dashboard#show'
+  namespace :profile do
+    get 'edit'
+  # get '/profile/edit', to: 'users#edit'
+    get 'orders'
+  # get '/profile/orders', to: 'orders#index'
+end
 
-  resources :orders, only: [:index, :new, :show]
+  get '/dashboard', to: 'dashboard#show'
+  namespace :dashboard do
+    # get '/dashboard/orders', to: 'orders#index'
+    resources :orders, only: [:index]
+    # get '/dashboard/items', to: 'items#index'
+    resources :items, only: [:index]
+  end
+
+  resources :orders, only: [:index, :show, :new]
   resources :items, only: [:index, :new]
   resources :users, only: [:index, :new, :create, :edit, :show, :update] do 
     # admins go here
     resources :orders, only: [:index]
+    patch 'enable', to: 'users#update'
+    patch 'disable', to: 'users#update'
   end
-  patch '/users/:id/enable', to: 'users#update'
-  patch '/users/:id/disable', to: 'users#update'
   
-  # users go here to see their orders
-  get '/profile/edit', to: 'users#edit'
-  get '/profile/orders', to: 'orders#index'
-  # merchants go here to see their orders
-  get '/dashboard/orders', to: 'orders#index'
-
-  get '/merchants/:user_id', to: 'dashboard#show'
-  # admins go here to see a merchant's orders
-  get '/merchants/:user_id/orders', to: 'orders#index', as: :merchant_orders
-  resources :merchants, only: [:index, :update]
-
+  resources :merchants, only: [:index, :update, :show] do
+    # get '/merchants/:user_id', to: 'dashboard#show'
+    # admins go here to see a merchant's orders
+    # get '/merchants/:user_id/orders', to: 'orders#index', as: :merchant_orders
+    resources :orders, only: [:index]
+    resources :items, only: [:index]
+  end
+  
   # custom error pages
   get "/404", to: "errors#not_found"
   get "/422", to: "errors#unacceptable"

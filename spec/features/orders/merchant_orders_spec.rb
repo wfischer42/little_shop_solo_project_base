@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 RSpec.describe 'Merchant Orders' do 
   before(:each) do
     @user = create(:user)
@@ -56,7 +55,6 @@ RSpec.describe 'Merchant Orders' do
     it 'sees a link to view dashboard orders if there are any orders' do 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
       visit merchant_path(@merchant) 
-
       click_link("Merchant Orders")
 
       expect(current_path).to eq(merchant_orders_path(@merchant))
