@@ -23,6 +23,15 @@ class OrdersController < ApplicationController
   end
 
   def create
-    redirect_to orders_path
+    items = Item.where(id: @cart.contents.keys)
+    order = Order.create!(user: current_user, status: :pending)
+    items.each do |item|
+      order.order_items.create!(
+        item: item, 
+        price: item.price, 
+        quantity: @cart.count_of(item.id), 
+        fulfilled: false)
+    end
+    redirect_to profile_orders_path
   end
 end
