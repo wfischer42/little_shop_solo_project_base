@@ -16,4 +16,8 @@ class User < ApplicationRecord
       Order.distinct.joins(:items).where('items.user_id=? AND orders.status=?', self.id, status)
     end
   end
+
+  def merchant_for_order(order)
+    !Order.distinct.joins(:items).where('items.user_id=? and orders.id=?', self.id, order.id).empty?
+  end
 end

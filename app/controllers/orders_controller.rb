@@ -49,4 +49,10 @@ class OrdersController < ApplicationController
     end
     redirect_to current_admin? ? user_orders_path(user) : profile_orders_path
   end
+
+  def show
+    @order = Order.find(params[:id])
+    render file: 'errors/not_found', status: 404 unless current_user || current_user.user? && current_user == @order.user || current_user.merchant? && current_user.merchant_for_order(@order) || current_admin?
+    @user = @order.user
+  end
 end

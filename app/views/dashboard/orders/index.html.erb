@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Merchant Orders</h1>
+<h1>Merchant Dashboard Orders</h1>
 
 <% if @orders.nil? || @orders.empty? %>
 Sorry there are no orders yet.
@@ -20,23 +20,27 @@ Sorry there are no orders yet.
   <tbody>
     <% @orders.each do |order| %>
       <tr id="order-<%= order.id %>">
-        <td>Order #<%= order.id %></td>
+        <td>
+          <%= link_to "Order #{order.id}", order_path(order) %><br/>
+          Created <%= distance_of_time_in_words(order.created_at, Time.now) %> ago<br/>
+          Updated <%= distance_of_time_in_words(order.created_at, Time.now) %> ago
+        </td>
         <td><%= order.user.email %></td>
         <td><%= order.status %></td>
         <td id="order-details-<%= order.id %>">
           <% order.order_items.each do |o_item| %>
-            <%= o_item.item.name %>
-            quantity: <%= o_item.quantity %>
-            price: <%= number_to_currency(o_item.price) %>
-            subtotal: <%= number_to_currency(o_item.subtotal) %>
-            <br />
+            <% if o_item.item.user == current_user %>
+              <%= o_item.item.name %>
+              quantity: <%= o_item.quantity %>
+              price: <%= number_to_currency(o_item.price) %>
+              subtotal: <%= number_to_currency(o_item.subtotal) %>
+              <br />
+            <% end %>
           <% end %>
         </td>
         <td>grand total: <%= number_to_currency(order.total) %></td>
-        <td><%= link_to 'Show', order %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <% end %>
-<br>

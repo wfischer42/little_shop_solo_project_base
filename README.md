@@ -704,11 +704,11 @@ I am taken to that order's show page ("/orders/12")
 ```
 
 ```
-51. [ ] done
+51. [x] done
 
 As a merchant
 When I visit an order show page
-I see the customer's name an address, but only the items in the order that are being purchased from me
+I see the customer's name and address, but only the items in the order that are being purchased from me
 I do not see any items in the order being purchased from other merchants
 For each item, I see the following information:
 - the name of the item, which is a link to my item's show page
@@ -719,7 +719,7 @@ For each item, I see the following information:
 If the user's desired quantity is equal to or less than my current inventory quantity for that item
 And I have not already "fulfilled" that item:
 - Then I see a button or link to "fulfill" that item
-- When i click on that link or button I am returned to the order show page
+- When I click on that link or button I am returned to the order show page
 - I see the item is now fulfilled
 - I also see a flash message indicating that I have fulfilled that item
 - My inventory quantity is permanently reduced by the user's desired quantity
