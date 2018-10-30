@@ -41,3 +41,12 @@
 </table>
 
 <%= button_to 'Empty Cart', cart_path, method: :delete %>
+
+<% if current_user %>
+  <%= button_to 'Check out', orders_path, method: :post %>
+<% else %>
+  <div id="must-log-in">
+  You must <%= link_to 'register', register_path %> or
+  <%= link_to 'log in', login_path %> to complete your purchase.
+  </div>
+<% end %>

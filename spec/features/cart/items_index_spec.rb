@@ -8,7 +8,7 @@ RSpec.describe 'Items Index' do
       @inactive_item = create(:inactive_item, name: 'inactive item 1')
       @user = create(:user)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
-  end
+    end
     describe 'visiting /items' do 
       it 'should show all active items' do 
         visit items_path
@@ -84,6 +84,7 @@ RSpec.describe 'Items Index' do
           expect(page).to have_content("Subtotal: $#{2 * item_2.price}")
         end
         expect(page).to have_content("Grand Total: $12.00")
+        click_button "Check out"
       end
       it 'should allow me to empty my cart' do 
         FactoryBot.reload
@@ -148,6 +149,22 @@ RSpec.describe 'Items Index' do
         expect(page).to have_content("Removed entire quantity of #{item_1.name} from your cart")
         expect(page).to have_content("Cart: 0")
         expect(page).to have_content("Grand Total: $0.00")
+      end
+    end
+  end
+  context 'as a visitor' do 
+    it 'should tell me to login/register if I am a visitor' do 
+      @merchant = create(:merchant)
+      FactoryBot.reload
+      item_1, item_2 = create_list(:item, 2, user: @merchant)
+
+      visit item_path(item_1)
+      click_button("Add to Cart")
+      visit carts_path
+      within('#must-log-in') do 
+        expect(page).to have_content("You must register or log in to complete your purchase")
+        expect(page).to have_link("register")
+        expect(page).to have_link("log in")
       end
     end
   end

@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :items, only: [:index]
   end
 
-  resources :orders, only: [:index, :show, :new]
+  resources :orders, only: [:index, :show, :create]
   resources :items, only: [:index, :show]
   resources :users, only: [:index, :new, :create, :edit, :show, :update] do 
     resources :orders, only: [:index]
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :carts, path: '/cart', only: [:index, :create]
+  resources :carts, path: '/cart', only: [:index]
   delete '/cart', to: 'carts#empty'
   delete '/cart/:item_id', to: 'carts#remove'
   patch '/cart/:item_id', to: 'carts#update', as: 'cart_item_quantity'

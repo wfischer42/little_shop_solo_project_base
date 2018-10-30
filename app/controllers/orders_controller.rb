@@ -22,8 +22,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  # private
-  #   def order_params
-  #     params.require(:order).permit(:user_id, :status)
-  #   end
+  def create
+    redirect_to orders_path
+  end
 end
