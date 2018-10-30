@@ -730,7 +730,7 @@ Instead I see a big red notice next to the item indicating I cannot fulfill this
 ```
 
 ```
-52. [ ] done
+52. [x] done
 
 When all items in an order have been "fulfilled" by their merchants
 The order status changes from "pending" to "complete"

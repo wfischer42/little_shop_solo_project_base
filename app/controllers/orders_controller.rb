@@ -32,6 +32,8 @@ class OrdersController < ApplicationController
         quantity: @cart.count_of(item.id), 
         fulfilled: false)
     end
+    session[:cart] = nil
+    @cart = Cart.new({})
     redirect_to profile_orders_path
   end
 
@@ -43,7 +45,14 @@ class OrdersController < ApplicationController
     
     if params[:status]
       if params[:status] == 'cancel'
-        order.order_items.update(fulfilled: :false)
+        order.order_items.each do |oi|
+          if oi.fulfilled
+            oi.fulfilled = false
+            oi.save
+            oi.item.inventory += oi.quantity
+            oi.item.save
+          end
+        end
         order.update(status: :cancelled)
       end
     end

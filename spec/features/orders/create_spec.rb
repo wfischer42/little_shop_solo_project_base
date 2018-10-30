@@ -27,6 +27,7 @@ RSpec.describe 'Create Order' do
           end
         end
       end
+      expect(page).to have_content("Cart: 0")
     end
     it 'allows me to cancel a pending order' do
       merchant = create(:merchant)
@@ -49,6 +50,29 @@ RSpec.describe 'Create Order' do
       within("#order-#{order_1.id}") do
         expect(page).to have_content("cancelled")
       end
+    end
+  end
+  context 'as a merchant' do
+    it 'should mark a whole order as fulfilled when the last merchant fulfills their portions' do
+      merchant = create(:merchant)
+      user = create(:user)
+      item_1 = create(:item, user: merchant)
+      order_1 = create(:order, user: user)
+      oi_1 = create(:order_item, order: order_1, item: item_1)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+
+      visit order_path(order_1)
+
+      within "#orderitem-details-#{oi_1.id}" do
+        expect(page).to have_content(item_1.name)
+        click_button "fulfill item"
+      end
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      visit order_path(order_1)
+
+      expect(page).to have_content("Status: completed")
+      expect(page).to_not have_button('Cancel Order')
     end
   end
 end

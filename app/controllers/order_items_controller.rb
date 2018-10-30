@@ -4,7 +4,13 @@ class OrderItemsController < ApplicationController
     @order_item.fulfilled = true
     @order_item.save
     @order_item.item.inventory -= @order_item.quantity
-    @order_item.item.save 
+    @order_item.item.save
+
+    @order = @order_item.order
+    if @order.order_items.where(fulfilled: false).count == 0
+      @order.update(status: :completed)
+    end
+
     flash[:notice] = "Item fulfilled, good job on the sale!"
     redirect_back(fallback_location: dashboard_orders_path)
   end
