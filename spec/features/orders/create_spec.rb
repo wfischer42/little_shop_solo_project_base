@@ -75,4 +75,41 @@ RSpec.describe 'Create Order' do
       expect(page).to_not have_button('Cancel Order')
     end
   end
+  context 'mixed user login workflow' do 
+    it 'a cancelled order with fulfilled items puts inventory back' do
+      merchant = create(:merchant)
+      user = create(:user)
+      item_1, item_2 = create_list(:item, 2, user: merchant)
+      
+      order_1 = create(:order, user: user)
+      oi_1 = create(:order_item, order: order_1, item: item_1)
+      create(:order_item, order: order_1, item: item_2)
+  
+      # as a merchant, fulfill part of an order and verify
+      # that inventory level has changed
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+      old_inventory = item_1.inventory
+
+      visit order_path(order_1)
+
+      within "#orderitem-details-#{oi_1.id}" do
+        expect(page).to have_content(item_1.name)
+        click_button "fulfill item"
+      end
+      item_check = Item.find(item_1.id)
+      expect(item_check.inventory).to_not eq(old_inventory)
+
+      # now, as a user, cancel that entire order and verify
+      # that inventory is restored
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit orders_path
+      within("#order-#{order_1.id}") do
+        click_button 'Cancel Order'
+      end
+
+      item_check = Item.find(item_1.id)
+      expect(item_check.inventory).to eq(old_inventory)
+    end
+  end
 end

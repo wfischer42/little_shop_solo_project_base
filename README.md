@@ -737,16 +737,14 @@ The order status changes from "pending" to "complete"
 ```
 
 ```
-53. [ ]  done
+53. [x]  done
 
-As an admin
-When I visit the orders index page ("/orders")
-I see a "cancel" button next to each order which has not yet "complete"
-If I click on the "cancel" button
-Each row in the "order items" table is given a status of "canceled"
-The order itself is given a status of "canceled"
-Merchants and users can no longer take any additional action on this order
-Admins cannot reset an order back to pending or completed states
+As an admin, or a user owning an order
+When I cancel an order
+Each row in the "order items" table is given a status of "unfulfilled"
+The order itself is given a status of "cancelled"
+Any items in the order that were previously fulfilled have their quantities 
+  returned to their respective merchant's inventory for that item.
 ```
 
 ### Statistics
