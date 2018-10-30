@@ -8,8 +8,8 @@ Sorry there are no orders yet.
 <table>
   <thead>
     <tr>
-      <% if current_admin? || current_user.merchant?%>
       <th>ID</th>
+      <% if current_admin? || current_user.merchant?%>
       <th>User</th>
       <% end %>
       <th>Status</th>
@@ -22,8 +22,12 @@ Sorry there are no orders yet.
   <tbody>
     <% @orders.each do |order| %>
       <tr id="order-<%= order.id %>">
+        <td>
+          <%= link_to "Order #{order.id}", order_path(order) %><br/>
+          Created <%= distance_of_time_in_words(order.created_at, Time.now) %> ago<br/>
+          Updated <%= distance_of_time_in_words(order.created_at, Time.now) %> ago
+        </td>
         <% if current_admin? || current_user.merchant?%>
-        <td>Order #<%= order.id %></td>
         <td><%= order.user.email %></td>
         <% end %>
         <td><%= order.status %></td>
@@ -37,7 +41,11 @@ Sorry there are no orders yet.
           <% end %>
         </td>
         <td>grand total: <%= number_to_currency(order.total) %></td>
-        <td><%= link_to 'Show', order %></td>
+        <td>
+          <% if order.status == 'pending' %>
+          <%= button_to 'Cancel Order', user_order_path(order.user, order), method: :patch, params: {status: :cancel} %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

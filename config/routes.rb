@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   resources :orders, only: [:index, :show, :create]
   resources :items, only: [:index, :show]
   resources :users, only: [:index, :new, :create, :edit, :show, :update] do 
-    resources :orders, only: [:index]
+    resources :orders, only: [:index, :update]
     patch 'enable', to: 'users#update'
     patch 'disable', to: 'users#update'
   end

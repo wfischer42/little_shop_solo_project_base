@@ -664,7 +664,7 @@ I am taken to my orders page ("/profile/orders")
 ```
 
 ```
-48. [ ] done
+48. [x] done
 
 As a registered user, merchant, or admin
 When I visit my orders page
@@ -681,7 +681,7 @@ And I see that order has an updated status of "cancelled"
 ```
 
 ```
-49. [ ] done
+49. [x] done
 
 As a merchant
 When I visit my dashboard
@@ -695,7 +695,7 @@ Each order will show the following information:
 ```
 
 ```
-50. [ ] done
+50. [x] done
 
 As a merchant
 When I visit my merchant orders page

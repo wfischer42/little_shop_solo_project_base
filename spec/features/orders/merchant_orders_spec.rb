@@ -39,8 +39,8 @@ RSpec.describe 'Merchant Orders' do
       visit dashboard_orders_path
 
       expect(page).to have_content(@user.email)
-      expect(page).to have_content("Order ##{@order_1.id}")
-      expect(page).to_not have_content("Order ##{@order_2.id}")
+      expect(page).to have_content("Order #{@order_1.id}")
+      expect(page).to_not have_content("Order #{@order_2.id}")
     end
   end
 
@@ -59,8 +59,8 @@ RSpec.describe 'Merchant Orders' do
 
       expect(current_path).to eq(merchant_orders_path(@merchant))
       expect(page).to have_content(@user.email)
-      expect(page).to have_content("Order ##{@order_1.id}")
-      expect(page).to have_content("Order ##{@order_2.id}")
+      expect(page).to have_content("Order #{@order_1.id}")
+      expect(page).to have_content("Order #{@order_2.id}")
     end
   end
 end

@@ -6,7 +6,8 @@ class ProfileController < ApplicationController
 
   def orders
     render file: 'errors/not_found', status: 404 unless current_user
-    @orders = current_user.orders.where.not(status: :disabled).order(created_at: :desc)
+    @user = current_user
+    @orders = @user.orders.where.not(status: :disabled).order(created_at: :desc)
     render :'orders/index'
   end
 end

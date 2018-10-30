@@ -34,4 +34,19 @@ class OrdersController < ApplicationController
     end
     redirect_to profile_orders_path
   end
+
+  def update
+    user = User.find(params[:user_id])
+    render file: 'errors/not_found', status: 404 unless current_admin? || current_user == user
+    order = Order.find(params[:id])
+    render file: 'errors/not_found', status: 404 unless order
+    
+    if params[:status]
+      if params[:status] == 'cancel'
+        order.order_items.update(fulfilled: :false)
+        order.update(status: :cancelled)
+      end
+    end
+    redirect_to current_admin? ? user_orders_path(user) : profile_orders_path
+  end
 end
