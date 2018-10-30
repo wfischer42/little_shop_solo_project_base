@@ -1,1 +1,36 @@
-my cart
+<p id="notice"><%= notice %></p>
+
+<h1>My Cart</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Image</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @items.each do |item| %>
+      <tr id="item-<%= item.id %>">
+        <td><%= link_to item.name, item_path(item) %></td>
+        <td>
+          <img id="item-image-<%= item.id %>" alt="image for <%= item.name %>" src="<%= item.image %>" width="200" />
+        </td>
+        <td>Merchant: <%= item.user.name %></td>
+        <td>Price: <%= item.price %></td>
+        <td>Quantity: <%= @cart.count_of(item.id) %></td>
+        <td>Subtotal: <%= number_to_currency(item.price * @cart.count_of(item.id)) %></td>
+        <td>increase/decrease/remove</td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan=4></td>
+      <td>Grant Total: <%= number_to_currency(@cart.grand_total) %></td>
+    </tr>
+  </tbody>
+</table>

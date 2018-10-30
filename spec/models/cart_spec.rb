@@ -28,4 +28,14 @@ RSpec.describe Cart do
     cart = Cart.new({})
     expect(cart.count_of(5)).to eq(0)
   end
+
+  it '.grand_total' do
+    item_1, item_2 = create_list(:item, 2)
+    cart = Cart.new({})
+    cart.add_item(item_1.id)
+    cart.add_item(item_2.id)
+    cart.add_item(item_2.id)
+
+    expect(cart.grand_total).to eq(item_1.price+item_2.price+item_2.price)
+  end
 end

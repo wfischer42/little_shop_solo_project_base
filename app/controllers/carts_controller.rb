@@ -2,6 +2,7 @@ class CartsController < ApplicationController
   include ActionView::Helpers::TextHelper
 
   def index
+    @items = Item.where(id: @cart.contents.keys)
   end
 
   def create

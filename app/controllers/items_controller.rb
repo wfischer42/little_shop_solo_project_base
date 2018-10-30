@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
   def index
-    if current_user && current_user.merchant? || current_admin?
-      @items = Item.all
-    else
+    # if current_user && current_user.merchant? || current_admin?
+    #   @items = Item.all
+    # else
       @items = Item.where(active: true)
-    end
+    # end
   end
 
   def new 

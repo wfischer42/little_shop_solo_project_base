@@ -592,7 +592,7 @@ The navigation bar increments my cart counter
 ```
 
 ```
-42. [ ] done
+42. [x] done
 
 As any kind of user on the system
 When I visit my cart ("/cart")
