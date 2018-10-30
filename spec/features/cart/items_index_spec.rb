@@ -85,6 +85,22 @@ RSpec.describe 'Items Index' do
         end
         expect(page).to have_content("Grant Total: $12.00")
       end
+      it 'should allow me to empty my cart' do 
+        FactoryBot.reload
+        item_1, item_2 = create_list(:item, 2, user: @merchant)
+
+        visit item_path(item_1)
+        click_button("Add to Cart")
+        click_button("Add to Cart")
+        visit item_path(item_2)
+        click_button("Add to Cart")
+        click_button("Add to Cart")
+
+        visit carts_path
+        expect(page).to have_content("Cart: 4")
+        click_button "Empty Cart"
+        expect(page).to have_content("Cart: 0")
+      end
     end
   end
 end

@@ -36,7 +36,8 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :carts, only: [:index, :create]
+  resources :carts, path: '/cart', only: [:index, :create]
+  delete '/cart', to: 'carts#empty'
 
   # custom error pages
   get "/404", to: "errors#not_found"

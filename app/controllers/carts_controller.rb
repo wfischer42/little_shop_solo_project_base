@@ -15,4 +15,10 @@ class CartsController < ApplicationController
     flash[:notice] = "Item has been added to your cart"
     redirect_back(fallback_location: items_path)
   end
+
+  def empty
+    session[:cart] = nil
+    @cart = Cart.new({})
+    redirect_to carts_path
+  end
 end

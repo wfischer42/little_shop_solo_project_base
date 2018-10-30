@@ -609,7 +609,7 @@ I also see a grand total of what everything in my cart will cost
 ```
 
 ```
-43. [ ] done
+43. [x] done
 
 As any kind of user on the system
 When I visit my cart ("/cart")

@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-10-29T18:43:55-06:00">2018-10-29T18:43:55-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-10-29T18:52:44-06:00">2018-10-29T18:52:44-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         2.95
+         3.02
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>35</b> files in total.
-    <b>1143</b> relevant lines. 
-    <span class="green"><b>1143</b> lines covered</span> and
+    <b>1160</b> relevant lines. 
+    <span class="green"><b>1160</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -57,17 +57,17 @@
         <td>10</td>
         <td>10</td>
         <td>0</td>
-        <td>103.0</td>
+        <td>105.7</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#19f2753d587d2539ac0cc11737b9315a74f9ddfe" class="src_link" title="app/controllers/carts_controller.rb">app/controllers/carts_controller.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>18</td>
-        <td>11</td>
-        <td>11</td>
+        <td>24</td>
+        <td>15</td>
+        <td>15</td>
         <td>0</td>
-        <td>2.7</td>
+        <td>4.0</td>
       </tr>
       
       <tr>
@@ -107,7 +107,7 @@
         <td>55</td>
         <td>55</td>
         <td>0</td>
-        <td>2.2</td>
+        <td>2.3</td>
       </tr>
       
       <tr>
@@ -177,7 +177,7 @@
         <td>16</td>
         <td>16</td>
         <td>0</td>
-        <td>25.5</td>
+        <td>28.5</td>
       </tr>
       
       <tr>
@@ -263,11 +263,11 @@
       <tr>
         <td class="strong"><a href="#0129b8fa200465d39035aa3ab4ce6e8f7f1ab578" class="src_link" title="spec/features/cart/items_index_spec.rb">spec/features/cart/items_index_spec.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>90</td>
-        <td>63</td>
-        <td>63</td>
+        <td>106</td>
+        <td>76</td>
+        <td>76</td>
         <td>0</td>
-        <td>1.2</td>
+        <td>1.3</td>
       </tr>
       
       <tr>
@@ -496,8 +496,8 @@
           <code class="ruby">  def current_admin?</code>
         </li>
       
-        <li class="covered" data-hits="389" data-linenumber="12">
-          <span class="hits">389</span>
+        <li class="covered" data-hits="403" data-linenumber="12">
+          <span class="hits">403</span>
           
           <code class="ruby">    current_user &amp;&amp; current_user.admin?</code>
         </li>
@@ -520,8 +520,8 @@
           <code class="ruby">  def build_cart</code>
         </li>
       
-        <li class="covered" data-hits="195" data-linenumber="16">
-          <span class="hits">195</span>
+        <li class="covered" data-hits="208" data-linenumber="16">
+          <span class="hits">208</span>
           
           <code class="ruby">    @cart ||= Cart.new(session[:cart])</code>
         </li>
@@ -548,8 +548,8 @@
     <h3>app/controllers/carts_controller.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>11</b> relevant lines. 
-      <span class="green"><b>11</b> lines covered</span> and
+      <b>15</b> relevant lines. 
+      <span class="green"><b>15</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -581,8 +581,8 @@
           <code class="ruby">  def index</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="5">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="4" data-linenumber="5">
+          <span class="hits">4</span>
           
           <code class="ruby">    @items = Item.where(id: @cart.contents.keys)</code>
         </li>
@@ -605,8 +605,8 @@
           <code class="ruby">  def create</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="9">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="8" data-linenumber="9">
+          <span class="hits">8</span>
           
           <code class="ruby">    item = Item.find(params[:item_id])</code>
         </li>
@@ -617,20 +617,20 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="11">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="8" data-linenumber="11">
+          <span class="hits">8</span>
           
           <code class="ruby">    @cart.add_item(item.id)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="12">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="8" data-linenumber="12">
+          <span class="hits">8</span>
           
           <code class="ruby">    session[:cart] = @cart.contents</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="13">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="8" data-linenumber="13">
+          <span class="hits">8</span>
           
           <code class="ruby">    quantity = @cart.count_of(item.id)</code>
         </li>
@@ -641,14 +641,14 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="15">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="8" data-linenumber="15">
+          <span class="hits">8</span>
           
           <code class="ruby">    flash[:notice] = &quot;Item has been added to your cart&quot;</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="16">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="8" data-linenumber="16">
+          <span class="hits">8</span>
           
           <code class="ruby">    redirect_back(fallback_location: items_path)</code>
         </li>
@@ -660,6 +660,42 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="18">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="19">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def empty</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="20">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    session[:cart] = nil</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="21">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    @cart = Cart.new({})</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="22">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    redirect_to carts_path</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
           
           
           <code class="ruby">end</code>
@@ -999,8 +1035,8 @@
           <code class="ruby">  def show</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="17">
-          <span class="hits">10</span>
+        <li class="covered" data-hits="16" data-linenumber="17">
+          <span class="hits">16</span>
           
           <code class="ruby">    @item = Item.find(params[:id])</code>
         </li>
@@ -2752,8 +2788,8 @@
           <code class="ruby">  def initialize(initial_contents)</code>
         </li>
       
-        <li class="covered" data-hits="199" data-linenumber="5">
-          <span class="hits">199</span>
+        <li class="covered" data-hits="213" data-linenumber="5">
+          <span class="hits">213</span>
           
           <code class="ruby">    @contents = initial_contents || Hash.new(0)</code>
         </li>
@@ -2776,8 +2812,8 @@
           <code class="ruby">  def total_count</code>
         </li>
       
-        <li class="covered" data-hits="158" data-linenumber="9">
-          <span class="hits">158</span>
+        <li class="covered" data-hits="166" data-linenumber="9">
+          <span class="hits">166</span>
           
           <code class="ruby">    @contents.values.sum</code>
         </li>
@@ -2800,14 +2836,14 @@
           <code class="ruby">  def add_item(item_id)</code>
         </li>
       
-        <li class="covered" data-hits="9" data-linenumber="13">
-          <span class="hits">9</span>
+        <li class="covered" data-hits="13" data-linenumber="13">
+          <span class="hits">13</span>
           
           <code class="ruby">    @contents[item_id.to_s] ||= 0</code>
         </li>
       
-        <li class="covered" data-hits="9" data-linenumber="14">
-          <span class="hits">9</span>
+        <li class="covered" data-hits="13" data-linenumber="14">
+          <span class="hits">13</span>
           
           <code class="ruby">    @contents[item_id.to_s] += 1</code>
         </li>
@@ -2830,8 +2866,8 @@
           <code class="ruby">  def count_of(item_id)</code>
         </li>
       
-        <li class="covered" data-hits="13" data-linenumber="18">
-          <span class="hits">13</span>
+        <li class="covered" data-hits="23" data-linenumber="18">
+          <span class="hits">23</span>
           
           <code class="ruby">    @contents[item_id.to_s].to_i</code>
         </li>
@@ -2854,20 +2890,20 @@
           <code class="ruby">  def grand_total</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="22">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="5" data-linenumber="22">
+          <span class="hits">5</span>
           
           <code class="ruby">    total = 0</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="23">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="5" data-linenumber="23">
+          <span class="hits">5</span>
           
           <code class="ruby">    Item.where(id: @contents.keys).each do |item|</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="24">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="6" data-linenumber="24">
+          <span class="hits">6</span>
           
           <code class="ruby">      total += (item.price * count_of(item.id))</code>
         </li>
@@ -2878,8 +2914,8 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="26">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="5" data-linenumber="26">
+          <span class="hits">5</span>
           
           <code class="ruby">    total</code>
         </li>
@@ -4468,8 +4504,8 @@
     <h3>spec/features/cart/items_index_spec.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>63</b> relevant lines. 
-      <span class="green"><b>63</b> lines covered</span> and
+      <b>76</b> relevant lines. 
+      <span class="green"><b>76</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -4507,32 +4543,32 @@
           <code class="ruby">    before(:each) do </code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="6">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="5" data-linenumber="6">
+          <span class="hits">5</span>
           
           <code class="ruby">      @merchant = create(:merchant)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="7">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="5" data-linenumber="7">
+          <span class="hits">5</span>
           
           <code class="ruby">      @active_item = create(:item, user: @merchant)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="8">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="5" data-linenumber="8">
+          <span class="hits">5</span>
           
           <code class="ruby">      @inactive_item = create(:inactive_item, name: &#39;inactive item 1&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="9">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="5" data-linenumber="9">
+          <span class="hits">5</span>
           
           <code class="ruby">      @user = create(:user)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="10">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="5" data-linenumber="10">
+          <span class="hits">5</span>
           
           <code class="ruby">      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)</code>
         </li>
@@ -4999,19 +5035,115 @@
           <code class="ruby">      end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="88">
+        <li class="covered" data-hits="1" data-linenumber="88">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      it &#39;should allow me to empty my cart&#39; do </code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="89">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        FactoryBot.reload</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="90">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        item_1, item_2 = create_list(:item, 2, user: @merchant)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="91">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="92">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        visit item_path(item_1)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="93">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        click_button(&quot;Add to Cart&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="94">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        click_button(&quot;Add to Cart&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="95">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        visit item_path(item_2)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="96">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        click_button(&quot;Add to Cart&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="97">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        click_button(&quot;Add to Cart&quot;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="98">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="99">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        visit carts_path</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="100">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        expect(page).to have_content(&quot;Cart: 4&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="101">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        click_button &quot;Empty Cart&quot;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="102">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        expect(page).to have_content(&quot;Cart: 0&quot;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="103">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="104">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="89">
+        <li class="never" data-hits="" data-linenumber="105">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="90">
+        <li class="never" data-hits="" data-linenumber="106">
           
           
           <code class="ruby">end</code>
