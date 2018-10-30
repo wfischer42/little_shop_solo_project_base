@@ -30,7 +30,7 @@
   <%= @item.inventory %>
 </p>
 
-<%= button_to "Add to Cart", carts_path(item_id: @item.id) %>
+<%= button_to 'Add to Cart', cart_item_quantity_path(item_id: @item.id), method: :patch, params: {quantity: :more} %>
 
 <% if current_admin? || current_user == @item.user %>
 <%= link_to 'Edit', edit_merchant_item(@item.user, @item) %> |

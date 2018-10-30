@@ -25,12 +25,17 @@
         <td>Price: <%= item.price %></td>
         <td>Quantity: <%= @cart.count_of(item.id) %></td>
         <td>Subtotal: <%= number_to_currency(item.price * @cart.count_of(item.id)) %></td>
-        <td>increase/decrease/remove</td>
+        <td>
+          <%= button_to 'Add 1', cart_item_quantity_path(item_id: item.id), method: :patch, params: {quantity: :more} %>
+          <%= button_to 'Remove 1', cart_item_quantity_path(item_id: item.id), method: :patch, params: {quantity: :less} %>
+          <%= button_to 'Remove All', cart_item_quantity_path(item_id: item.id), method: :patch, params: {quantity: :none} %>
+          decrease/remove
+          </td>
       </tr>
     <% end %>
     <tr>
       <td colspan=4></td>
-      <td>Grant Total: <%= number_to_currency(@cart.grand_total) %></td>
+      <td>Grand Total: <%= number_to_currency(@cart.grand_total) %></td>
     </tr>
   </tbody>
 </table>

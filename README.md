@@ -620,7 +620,7 @@ The navigation bar shows 0 items in my cart
 ```
 
 ```
-44. [ ] done
+44. [x] done
 
 As any kind of user on the system
 When I visit my cart

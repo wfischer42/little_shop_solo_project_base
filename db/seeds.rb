@@ -10,3 +10,4 @@ User.destroy_all
 admin = create(:admin)
 user = create(:user)
 merchant = create(:merchant)
+item = create(:item, user: merchant)

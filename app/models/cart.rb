@@ -14,6 +14,23 @@ class Cart
     @contents[item_id.to_s] += 1
   end
 
+  def remove_item(item_id)
+    item_id_str = item_id.to_s
+    if @contents.key?(item_id_str)
+      @contents[item_id.to_s] -= 1
+      if @contents[item_id.to_s] <= 0
+        @contents.delete(item_id.to_s)
+      end
+    end
+  end
+
+  def remove_all_item(item_id)
+    item_id_str = item_id.to_s
+    if @contents.key?(item_id_str)
+      @contents.delete(item_id.to_s)      
+    end
+  end
+
   def count_of(item_id)
     @contents[item_id.to_s].to_i
   end

@@ -5,14 +5,23 @@ class CartsController < ApplicationController
     @items = Item.where(id: @cart.contents.keys)
   end
 
-  def create
+  def update
     item = Item.find(params[:item_id])
-
-    @cart.add_item(item.id)
+    if params[:quantity] == 'more'
+      if @cart.count_of(item.id)+1 <= item.inventory
+        @cart.add_item(item.id)
+        flash[:notice] = "Added another #{item.name} to your cart"
+      else
+        flash[:notice] = "Cannot add another #{item.name} to your cart, merchant doesn't have enough inventory"
+      end
+    elsif params[:quantity] == 'less'
+      @cart.remove_item(item.id)
+      flash[:notice] = "Removed #{item.name} from your cart"
+    elsif params[:quantity] == 'none'
+      @cart.remove_all_item(item.id)
+      flash[:notice] = "Removed entire quantity of #{item.name} from your cart"
+    end
     session[:cart] = @cart.contents
-    quantity = @cart.count_of(item.id)
-
-    flash[:notice] = "Item has been added to your cart"
     redirect_back(fallback_location: items_path)
   end
 

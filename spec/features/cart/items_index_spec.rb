@@ -54,7 +54,7 @@ RSpec.describe 'Items Index' do
         expect(page).to have_content("Cart: 0")
         click_button("Add to Cart")
         expect(page).to have_content("Cart: 1")
-        expect(page).to have_content("Item has been added to your cart")
+        expect(page).to have_content("Added another #{@active_item.name} to your cart")
       end
     end
     describe 'visiting /cart' do 
@@ -83,7 +83,7 @@ RSpec.describe 'Items Index' do
           expect(page).to have_content("Quantity: 2")
           expect(page).to have_content("Subtotal: $#{2 * item_2.price}")
         end
-        expect(page).to have_content("Grant Total: $12.00")
+        expect(page).to have_content("Grand Total: $12.00")
       end
       it 'should allow me to empty my cart' do 
         FactoryBot.reload
@@ -100,6 +100,54 @@ RSpec.describe 'Items Index' do
         expect(page).to have_content("Cart: 4")
         click_button "Empty Cart"
         expect(page).to have_content("Cart: 0")
+      end
+      it 'should block me from adding more items than a merchant has quantity' do
+        FactoryBot.reload
+        item_1 = create(:item, user: @merchant)
+        visit item_path(item_1)
+        click_button("Add to Cart")
+        visit carts_path 
+        item_1.inventory.times do |num|
+          click_button("Add 1")
+        end
+        expect(page).to have_content("Cannot add another #{item_1.name} to your cart, merchant doesn't have enough inventory")
+      end
+      it 'should allow me to change item quantities in my cart' do 
+        FactoryBot.reload
+        item_1, item_2 = create_list(:item, 2, user: @merchant)
+
+        visit item_path(item_1)
+        click_button("Add to Cart")
+        expect(page).to have_content("Cart: 1")
+        
+        visit carts_path
+        expect(page).to have_content("Grand Total: $3.00")
+        within "#item-#{item_1.id}" do 
+          expect(page).to have_content("Quantity: 1")
+          click_button "Add 1"
+        end
+
+        expect(page).to have_content("Added another #{item_1.name} to your cart")
+        expect(page).to have_content("Cart: 2")
+        visit carts_path
+        within "#item-#{item_1.id}" do 
+          expect(page).to have_content("Quantity: 2")
+        end
+        expect(page).to have_content("Grand Total: $6.00")
+        within "#item-#{item_1.id}" do 
+          click_button "Remove 1"
+        end
+        expect(page).to have_content("Removed #{item_1.name} from your cart")
+
+        expect(page).to have_content("Grand Total: $3.00")
+        within "#item-#{item_1.id}" do 
+          expect(page).to have_content("Quantity: 1")
+          click_button "Remove All"
+        end
+
+        expect(page).to have_content("Removed entire quantity of #{item_1.name} from your cart")
+        expect(page).to have_content("Cart: 0")
+        expect(page).to have_content("Grand Total: $0.00")
       end
     end
   end

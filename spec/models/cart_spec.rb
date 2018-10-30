@@ -24,6 +24,47 @@ RSpec.describe Cart do
       })
   end
 
+  it '.remove_item' do
+    cart = Cart.new({
+      '1' => 2,
+      '2' => 3
+    })
+
+    cart.remove_item(1)
+    cart.remove_item(2)
+
+    expect(cart.contents).to eq({
+      '1' => 1,
+      '2' => 2
+      })
+  end
+
+  it '.remove_item removes last' do
+    cart = Cart.new({
+      '1' => 1,
+      '2' => 3
+    })
+
+    cart.remove_item(1)
+
+    expect(cart.contents).to eq({
+      '2' => 3
+      })
+  end
+
+  it '.remove_all_item' do
+    cart = Cart.new({
+      '1' => 2,
+      '2' => 3
+    })
+
+    cart.remove_all_item(1)
+
+    expect(cart.contents).to eq({
+      '2' => 3
+      })
+  end
+
   it '.count_of' do
     cart = Cart.new({})
     expect(cart.count_of(5)).to eq(0)

@@ -5,7 +5,7 @@ FactoryBot.define do
     sequence(:description) { |n| "Description #{n}" }
     sequence(:image) { |n| "image-#{n}.jpg" }
     sequence(:price) { |n| ("#{n}".to_i+1)*1.5 }
-    sequence(:inventory) { |n| ("#{n}".to_i+1)*10 }
+    sequence(:inventory) { |n| ("#{n}".to_i+1)*2 }
     active { true }
   end
 
