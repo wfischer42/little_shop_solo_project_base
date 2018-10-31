@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActionView::Helpers::NumberHelper
 
 RSpec.describe 'Merchant Items' do 
   context 'as a merchant' do
@@ -28,8 +29,8 @@ RSpec.describe 'Merchant Items' do
           expect(page).to have_content("ID: #{item_1.id}")
           expect(page).to have_content(item_1.name)
           # code smell, had to hard-code an ID in the image filename for factorybot sequence
-          expect(page.find("#item-image-#{item_1.id}")['src']).to have_content "image-1.jpg"
-          expect(page).to have_content("Price: #{item_1.price}")
+          expect(page.find("#item-image-#{item_1.id}")['src']).to have_content(item_1.image)
+          expect(page).to have_content("Price: #{number_to_currency(item_1.price)}")
           expect(page).to have_content("Inventory: #{item_1.inventory}")
           expect(page).to have_link("Edit Item")
           expect(page).to have_button("Disable Item")
@@ -88,7 +89,7 @@ RSpec.describe 'Merchant Items' do
           expect(page).to have_content("ID: #{item.id}")
           expect(page).to have_content(item.name)
           expect(page.find("#item-image-#{item.id}")['src']).to have_content(item.image)
-          expect(page).to have_content("Price: #{item.price}")
+          expect(page).to have_content("Price: #{number_to_currency(item.price)}")
           expect(page).to have_content("Inventory: #{item.inventory}")
           expect(page).to have_link("Edit Item")
           # disabled by default
@@ -109,7 +110,7 @@ RSpec.describe 'Merchant Items' do
         expect(current_path).to eq dashboard_items_path
         item = Item.last
         within "#item-#{item.id}" do 
-          expect(page.find("#item-image-#{item.id}")['src']).to have_content('placeholder.jpg')
+          expect(page.find("#item-image-#{item.id}")['src']).to have_content('https://picsum.photos/200/300/?image=0&blur=true')
         end
       end
       it 'should block me from adding a new item if form is blank' do 
@@ -145,7 +146,7 @@ RSpec.describe 'Merchant Items' do
         within "#item-#{item.id}" do 
           expect(page).to have_content('New Item Name')
           expect(page.find("#item-image-#{item.id}")['src']).to have_content('new-image.jpg')
-          expect(page).to have_content("Price: 5")
+          expect(page).to have_content("Price: #{number_to_currency(5)}")
           expect(page).to have_content("Inventory: 100")
         end
       end

@@ -34,10 +34,10 @@ class ItemsController < ApplicationController
     @item = @merchant.items.create(item_params)
     if @item.save
       if @item.image.nil? || @item.image.empty?
-        @item.image = 'placeholder.jpg'
+        @item.image = 'https://picsum.photos/200/300/?image=0&blur=true'
         @item.save
       end
-      flash[:notice] = "Item created"
+      flash[:success] = "Item created"
       redirect_to current_admin? ? merchant_items_path(@merchant) : dashboard_items_path
     else
       @form_url = merchant_items_path
@@ -56,19 +56,19 @@ class ItemsController < ApplicationController
     render file: 'errors/not_found', status: 404 unless current_admin? || current_user == @merchant
 
     if request.fullpath.split('/')[-1] == 'disable'
-      flash[:notice] = "Item #{@item.id} is now disabled"
+      flash[:success] = "Item #{@item.id} is now disabled"
       @item.active = false
       @item.save
       redirect_to current_admin? ? merchant_items_path(@merchant) : dashboard_items_path
     elsif request.fullpath.split('/')[-1] == 'enable'
-      flash[:notice] = "Item #{@item.id} is now enabled"
+      flash[:success] = "Item #{@item.id} is now enabled"
       @item.active = true
       @item.save
       redirect_to current_admin? ? merchant_items_path(@merchant) : dashboard_items_path
     else
       @item.update(item_params)
       if @item.save
-        flash[:notice] = "Item updated"
+        flash[:success] = "Item updated"
         redirect_to current_admin? ? merchant_items_path(@merchant) : dashboard_items_path
       else
         @form_url = merchant_item_path(@merchant, @item)

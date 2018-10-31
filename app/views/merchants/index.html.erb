@@ -1,13 +1,13 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Merchants</h1>
 
 <table>
   <thead>
     <tr>
       <th>Name</th>
+      <% if current_admin? %>
       <th>Active</th>
       <th colspan="3"></th>
+      <% end %>
     </tr>
   </thead>
 
@@ -21,6 +21,7 @@
         <%= merchant.name %>
         <% end %>
         </td>
+        <% if current_admin? %>
         <td><%= merchant.active %></td>
         <td>
           <% if merchant.active %>
@@ -29,6 +30,7 @@
           <%= button_to "Enable", user_path(merchant), method: :patch, params: { toggle: :enable } %>
           <% end %>
         </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

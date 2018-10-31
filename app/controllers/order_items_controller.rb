@@ -11,7 +11,7 @@ class OrderItemsController < ApplicationController
       @order.update(status: :completed)
     end
 
-    flash[:notice] = "Item fulfilled, good job on the sale!"
+    flash[:success] = "Item fulfilled, good job on the sale!"
     redirect_back(fallback_location: dashboard_orders_path)
   end
 end

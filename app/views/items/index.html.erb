@@ -1,10 +1,10 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Items</h1>
 
 <div id="stats">
   <div id="popular-items">
-    <p>Most Popular Items:</p>
+    <div class="card float-left m-3" style="width: 25rem;">
+    <div class="card-body">
+    <h5 class="card-title">Most Popular Items:</h5>
     <% if @popular_items %>
     <ul>
     <% @popular_items.each do |item| %>
@@ -14,10 +14,13 @@
     <% else %>
     <p>(none yet)</p>
     <% end %>
+    </div>
   </div>
 
   <div id="popular-merchants">
-    <p>Most Popular Merchants:</p>
+    <div class="card float-left m-3" style="width: 25rem;">
+    <div class="card-body">
+    <h5 class="card-title">Most Popular Merchants:</h5>
     <% if @popular_merchants %>
     <ul>
     <% @popular_merchants.each do |merchant| %>
@@ -28,9 +31,14 @@
     <p>(none yet)</p>
     <% end %>
   </div>
+  </div>
+
+<br style="clear: both;">
 
   <div id="fastest-merchants">
-    <p>Fastest Merchants to Fulfill Ordered Items:</p>
+    <div class="card float-left m-3" style="width: 25rem;">
+    <div class="card-body">
+    <h5 class="card-title">Fastest Merchants to Fulfill Ordered Items:</h5>
     <% if @fastest_merchants %>
     <ol>
     <% @fastest_merchants.each do |merchant| %>
@@ -41,9 +49,12 @@
     <p>(none yet)</p>
     <% end %>
   </div>
+  </div>
 
   <div id="slowest-merchants">
-    <p>Slowest Merchants to Fulfill Ordered Items:</p>
+    <div class="card float-left m-3" style="width: 25rem;">
+    <div class="card-body">
+    <h5 class="card-title">Slowest Merchants to Fulfill Ordered Items:</h5>
     <% if @slowest_merchants %>
     <ol>
     <% @slowest_merchants.each do |merchant| %>
@@ -54,62 +65,47 @@
     <p>(none yet)</p>
     <% end %>
   </div>
+  </div>
 </div>
+
+<br style="clear: both;">
 
 <% if current_user && current_user.merchant? %>
 <%= link_to 'Add New Item', new_merchant_item_path(current_user) %>
 <% end %>
-<table>
-  <thead>
-    <tr>
-      <% if current_admin? || current_user && current_user.merchant? %>
-      <th>ID</th>
-      <% unless current_user && current_user.merchant? %>
-      <th>Merchant</th>
-      <% end %>
-      <th>Name</th>
-      <th>Description</th>
-      <th></th>
-      <th>Price</th>
-      <th>Inventory</th>
-      <% current_admin? || current_user && current_user.merchant? %>
-      <th>Active</th>
-      <th colspan="3"></th>
-      <% end %>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @items.each do |item| %>
-      <tr id="item-<%= item.id %>">
-        <td>ID: <%= item.id %></td>
-        <% if current_admin? || current_user != item.user %>
-        <td>Merchant: <%= item.user.name %></td>
-        <% end %>
-        <td><%= link_to item.name, item_path(item) %></td>
-        <td><%= item.description %></td>
-        <td>
-          <a href="<%= item_path(item) %>">
-          <img id="item-image-<%= item.id %>" alt="image for <%= item.name %>" src="<%= item.image %>" width="200" />
-          </a>
-          </td>
-        <td>Price: <%= item.price %></td>
-        <td>Inventory: <%= item.inventory %></td>
-        <% if current_admin? || current_user && current_user == item.user %>
-        <td><%= item.active %></td>
-        <td><%= link_to 'Edit Item', edit_merchant_item_path(current_user, item) %></td>
-        <td>
-          <% if item.active %>
-          <%= button_to "Disable Item", merchant_item_disable_path(current_user, item.id), method: :patch, params: { toggle: :disable } %>
-          <% else %>
-          <%= button_to "Enable Item", merchant_item_enable_path(current_user, item.id), method: :patch, params: { toggle: :enable } %>
-          <% end %>
+<hr>
 
-        </td>
-        <% end %>
-      </tr>
+<% @items.each do |item| %>
+
+<div class="card float-left m-3" style="width: 18rem;">
+  <a href="<%= item_path(item) %>">
+  <img class="card-img-top" id="item-image-<%= item.id %>" alt="image for <%= item.name %>" src="<%= item.image %>" width="200" />
+  </a>
+
+  <div class="card-body" id="item-<%= item.id %>">
+    <h5 class="card-title">
+      <%= link_to item.name, item_path(item), class: 'card-link' %>
+      <% if current_admin? || current_user == item.user %>
+      <%= link_to "ID: #{item.id}", item_path(item) %>
+      <% end %>
+    </h5>
+    <img class="card-img-top" id="item-image-<%= item.id %>" alt="image for <%= item.name %>" src="<%= item.image %>" width="0" />
+    <p>Price: <%= number_to_currency(item.price) %></p>
+    <p>
+      <strong>Merchant:</strong> <%= item.user.name %><br/>
+      <strong>Inventory:</strong> <%= item.inventory %></p>
+    <p><em><%= item.description %></em></p>
+
+    <% if current_admin? || current_user && current_user == item.user %>
+      <p>Item Active: <%= item.active %></p>
+      <p><%= link_to 'Edit Item', edit_merchant_item_path(current_user, item), class: 'card-link' %></p>
+      <% if item.active %>
+      <%= button_to "Disable Item", merchant_item_disable_path(current_user, item.id), method: :patch, params: { toggle: :disable } %>
+      <% else %>
+      <%= button_to "Enable Item", merchant_item_enable_path(current_user, item.id), method: :patch, params: { toggle: :enable } %>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
+  </div>
+</div>
+<% end %>
