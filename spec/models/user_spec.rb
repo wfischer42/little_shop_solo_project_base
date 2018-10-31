@@ -39,6 +39,56 @@ RSpec.describe User, type: :model do
 
       expect(User.top_merchants(4)).to eq([merchant_3, merchant_1, merchant_2, merchant_4])
     end
+    it '.popular_merchants(quantity)' do
+      user = create(:user)
+      merchant_1, merchant_2, merchant_3, merchant_4 = create_list(:merchant, 4)
+      item_1 = create(:item, user: merchant_1)
+      item_2 = create(:item, user: merchant_2)
+      item_3 = create(:item, user: merchant_3)
+      item_4 = create(:item, user: merchant_4)
+
+      order = create(:completed_order, user: user)
+      create(:fulfilled_order_item, order: order, item: item_1, price: 1, quantity: 1)
+      create(:fulfilled_order_item, order: order, item: item_2, price: 2, quantity: 1)
+      create(:fulfilled_order_item, order: order, item: item_3, price: 3, quantity: 1)
+      create(:fulfilled_order_item, order: order, item: item_4, price: 4, quantity: 1)
+
+      order = create(:completed_order, user: user)
+      create(:fulfilled_order_item, order: order, item: item_1, price: 1, quantity: 1)
+      create(:fulfilled_order_item, order: order, item: item_2, price: 2, quantity: 1)
+
+      order = create(:completed_order, user: user)
+      create(:fulfilled_order_item, order: order, item: item_2, price: 2, quantity: 1)
+      create(:fulfilled_order_item, order: order, item: item_3, price: 3, quantity: 1)
+
+      order = create(:completed_order, user: user)
+      create(:fulfilled_order_item, order: order, item: item_1, price: 1, quantity: 1)
+      create(:fulfilled_order_item, order: order, item: item_2, price: 2, quantity: 1)
+
+      expect(User.popular_merchants(3)).to eq([merchant_2, merchant_1, merchant_3])
+    end
+    context 'merchants by speed' do
+      before(:each) do
+        user = create(:user)
+        @merchant_1, @merchant_2, @merchant_3, @merchant_4 = create_list(:merchant, 4)
+        item_1 = create(:item, user: @merchant_1)
+        item_2 = create(:item, user: @merchant_2)
+        item_3 = create(:item, user: @merchant_3)
+        item_4 = create(:item, user: @merchant_4)
+
+        order = create(:order, user: user)
+        create(:fulfilled_order_item, order: order, item: item_1, created_at: 1.year.ago)
+        create(:fulfilled_order_item, order: order, item: item_2, created_at: 10.days.ago)
+        create(:order_item, order: order, item: item_3, price: 3, quantity: 1)
+        create(:fulfilled_order_item, order: order, item: item_4, created_at: 3.seconds.ago)
+      end
+      it '.fastest_merchants(quantity)' do
+        expect(User.fastest_merchants(4)).to eq([@merchant_4, @merchant_2, @merchant_1, @merchant_3])
+      end
+      it '.slowest_merchants(quantity)' do
+        expect(User.slowest_merchants(4)).to eq([@merchant_3, @merchant_1, @merchant_2, @merchant_4])
+      end
+    end
   end
 
   describe 'Instance Methods' do 

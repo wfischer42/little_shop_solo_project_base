@@ -12,4 +12,14 @@ class Item < ApplicationRecord
     only_integer: true, 
     greater_than_or_equal_to: 0
   }
+
+  def self.popular_items(quantity)
+    select('items.*, sum(order_items.quantity) as total_ordered')
+      .joins(:orders)
+      .where('orders.status != ?', :cancelled)
+      .where('order_items.fulfilled = ?', true)
+      .group('items.id, order_items.id')
+      .order('total_ordered desc')
+      .limit(quantity)
+  end
 end

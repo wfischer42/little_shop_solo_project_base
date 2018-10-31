@@ -96,14 +96,48 @@ class User < ApplicationRecord
   end
 
   def self.top_merchants(quantity)
-    select('users.*, sum(order_items.quantity*order_items.price) as total_earned')
+    select('distinct users.*, sum(order_items.quantity*order_items.price) as total_earned')
       .joins(:items)
       .joins('join order_items on items.id=order_items.item_id')
       .joins('join orders on orders.id=order_items.order_id')
       .where('orders.status != ?', :cancelled)
       .where('order_items.fulfilled = ?', true)
       .group('orders.id, users.id, order_items.id')
-      .order('total_earned desc')
+      .order('total_earned desc, users.name')
       .limit(quantity)
+  end
+
+  def self.popular_merchants(quantity)
+    select('users.*, coalesce(count(order_items.id),0) as total_orders')
+      .joins('join items on items.user_id=users.id')
+      .joins('join order_items on order_items.item_id=items.id')
+      .joins('join orders on orders.id=order_items.order_id')
+      .where('orders.status != ?', :cancelled)
+      .where('order_items.fulfilled = ?', true)
+      .group(:id)
+      .order('total_orders desc, users.name asc')
+      .limit(quantity)
+  end
+
+  def self.merchant_by_speed(quantity, order)
+    select("distinct users.*, 
+      CASE 
+        WHEN order_items.updated_at > order_items.created_at THEN coalesce(EXTRACT(EPOCH FROM order_items.updated_at) - EXTRACT(EPOCH FROM order_items.created_at),0)
+        ELSE 1000000000 END as time_diff")
+      .joins(:items)
+      .joins('join order_items on items.id=order_items.item_id')
+      .joins('join orders on orders.id=order_items.order_id')
+      .where('orders.status != ?', :cancelled)
+      .group('orders.id, users.id, order_items.updated_at, order_items.created_at')
+      .order("time_diff #{order}")
+      .limit(quantity)
+  end
+
+  def self.fastest_merchants(quantity)
+    merchant_by_speed(quantity, :asc)
+  end
+
+  def self.slowest_merchants(quantity)
+    merchant_by_speed(quantity, :desc)
   end
 end

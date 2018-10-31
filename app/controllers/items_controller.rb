@@ -1,10 +1,11 @@
 class ItemsController < ApplicationController
   def index
-    # if current_user && current_user.merchant? || current_admin?
-    #   @items = Item.all
-    # else
       @items = Item.where(active: true)
-    # end
+
+      @popular_items = Item.popular_items(5)
+      @popular_merchants = User.popular_merchants(5)
+      @fastest_merchants = User.fastest_merchants(3)
+      @slowest_merchants = User.slowest_merchants(3)
   end
 
   def new 

@@ -2,6 +2,60 @@
 
 <h1>Items</h1>
 
+<div id="stats">
+  <div id="popular-items">
+    <p>Most Popular Items:</p>
+    <% if @popular_items %>
+    <ul>
+    <% @popular_items.each do |item| %>
+      <li><%= item.name %>, ordered <%= item.total_ordered %> times</li>
+    <% end %>
+    </ul>
+    <% else %>
+    <p>(none yet)</p>
+    <% end %>
+  </div>
+
+  <div id="popular-merchants">
+    <p>Most Popular Merchants:</p>
+    <% if @popular_merchants %>
+    <ul>
+    <% @popular_merchants.each do |merchant| %>
+      <li><%= merchant.name %>, ordered from <%= merchant.total_orders %> times</li>
+    <% end %>
+    </ul>
+    <% else %>
+    <p>(none yet)</p>
+    <% end %>
+  </div>
+
+  <div id="fastest-merchants">
+    <p>Fastest Merchants to Fulfill Ordered Items:</p>
+    <% if @fastest_merchants %>
+    <ol>
+    <% @fastest_merchants.each do |merchant| %>
+      <li><%= merchant.name %></li>
+    <% end %>
+    </ul>
+    <% else %>
+    <p>(none yet)</p>
+    <% end %>
+  </div>
+
+  <div id="slowest-merchants">
+    <p>Slowest Merchants to Fulfill Ordered Items:</p>
+    <% if @slowest_merchants %>
+    <ol>
+    <% @slowest_merchants.each do |merchant| %>
+      <li><%= merchant.name %></li>
+    <% end %>
+    </ul>
+    <% else %>
+    <p>(none yet)</p>
+    <% end %>
+  </div>
+</div>
+
 <% if current_user && current_user.merchant? %>
 <%= link_to 'Add New Item', new_merchant_item_path(current_user) %>
 <% end %>
