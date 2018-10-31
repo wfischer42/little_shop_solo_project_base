@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-10-31T10:04:41-06:00">2018-10-31T10:04:41-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-10-31T13:28:09-06:00">2018-10-31T13:28:09-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -32,8 +32,8 @@
   <a name="AllFiles"></a>
   <div>
     <b>40</b> files in total.
-    <b>1880</b> relevant lines. 
-    <span class="green"><b>1880</b> lines covered</span> and
+    <b>1879</b> relevant lines. 
+    <span class="green"><b>1879</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -343,9 +343,9 @@
       <tr>
         <td class="strong"><a href="#1cf670ce3d5c932466df83d324ab2e40c59c19cf" class="src_link" title="spec/features/stats/items_spec.rb">spec/features/stats/items_spec.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>92</td>
-        <td>72</td>
-        <td>72</td>
+        <td>91</td>
+        <td>71</td>
+        <td>71</td>
         <td>0</td>
         <td>1.6</td>
       </tr>
@@ -10640,8 +10640,8 @@
     <h3>spec/features/stats/items_spec.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>72</b> relevant lines. 
-      <span class="green"><b>72</b> lines covered</span> and
+      <b>71</b> relevant lines. 
+      <span class="green"><b>71</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -11015,187 +11015,181 @@
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="62">
-          <span class="hits">1</span>
-          
-          <code class="ruby">      save_and_open_page  </code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="63">
+        <li class="never" data-hits="" data-linenumber="62">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="64">
+        <li class="covered" data-hits="1" data-linenumber="63">
           <span class="hits">1</span>
           
           <code class="ruby">    context &#39;merchants by speed&#39; do</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="65">
+        <li class="covered" data-hits="1" data-linenumber="64">
           <span class="hits">1</span>
           
           <code class="ruby">      before(:each) do</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="66">
+        <li class="covered" data-hits="2" data-linenumber="65">
           <span class="hits">2</span>
           
           <code class="ruby">        orders = create_list(:order, 5, user: @user)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="67">
+        <li class="covered" data-hits="2" data-linenumber="66">
           <span class="hits">2</span>
           
           <code class="ruby">        create(:fulfilled_order_item, order: orders[0], item: @item_1)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="68">
+        <li class="covered" data-hits="2" data-linenumber="67">
           <span class="hits">2</span>
           
           <code class="ruby">        create(:fulfilled_order_item, created_at: 3.seconds.ago, order: orders[0], item: @item_3)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="69">
+        <li class="covered" data-hits="2" data-linenumber="68">
           <span class="hits">2</span>
           
           <code class="ruby">        create(:fulfilled_order_item, created_at: 3.minutes.ago, order: orders[0], item: @item_5)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="70">
+        <li class="covered" data-hits="2" data-linenumber="69">
           <span class="hits">2</span>
           
           <code class="ruby">        create(:fulfilled_order_item, created_at: 3.hours.ago, order: orders[0], item: @item_7)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="71">
+        <li class="covered" data-hits="2" data-linenumber="70">
           <span class="hits">2</span>
           
           <code class="ruby">        create(:fulfilled_order_item, created_at: 3.days.ago, order: orders[0], item: @item_9)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="72">
+        <li class="covered" data-hits="2" data-linenumber="71">
           <span class="hits">2</span>
           
           <code class="ruby">        create(:order_item, order: orders[0], item: @item_1)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="73">
+        <li class="never" data-hits="" data-linenumber="72">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="74">
+        <li class="covered" data-hits="1" data-linenumber="73">
           <span class="hits">1</span>
           
           <code class="ruby">      it &#39;shows 3 merchants fastest at fulfilling orders&#39; do</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="75">
+        <li class="covered" data-hits="1" data-linenumber="74">
           <span class="hits">1</span>
           
           <code class="ruby">        visit items_path</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="75">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        within(&#39;#stats&#39;) do</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="76">
           <span class="hits">1</span>
           
-          <code class="ruby">        within(&#39;#stats&#39;) do</code>
+          <code class="ruby">          within(&#39;#fastest-merchants&#39;) do</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="77">
           <span class="hits">1</span>
           
-          <code class="ruby">          within(&#39;#fastest-merchants&#39;) do</code>
+          <code class="ruby">            expect(page).to have_content(&quot;#{@merchants[2].name} #{@merchants[4].name} #{@merchants[6].name}&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="78">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="78">
           
-          <code class="ruby">            expect(page).to have_content(&quot;#{@merchants[2].name} #{@merchants[4].name} #{@merchants[6].name}&quot;)</code>
+          
+          <code class="ruby">          end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="79">
           
           
-          <code class="ruby">          end</code>
+          <code class="ruby">        end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="80">
           
           
-          <code class="ruby">        end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="81">
-          
-          
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="82">
+        <li class="covered" data-hits="1" data-linenumber="81">
           <span class="hits">1</span>
           
           <code class="ruby">      it &#39;shows 3 merchants slowest at fulfilling orders&#39; do</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="83">
+        <li class="covered" data-hits="1" data-linenumber="82">
           <span class="hits">1</span>
           
           <code class="ruby">        visit items_path</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="84">
+        <li class="covered" data-hits="1" data-linenumber="83">
           <span class="hits">1</span>
           
           <code class="ruby">        within(&#39;#stats&#39;) do</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="85">
+        <li class="covered" data-hits="1" data-linenumber="84">
           <span class="hits">1</span>
           
           <code class="ruby">          within(&#39;#slowest-merchants&#39;) do</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="86">
+        <li class="covered" data-hits="1" data-linenumber="85">
           <span class="hits">1</span>
           
           <code class="ruby">            expect(page).to have_content(&quot;#{@merchants[0].name} #{@merchants[8].name} #{@merchants[6].name}&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="87">
+        <li class="never" data-hits="" data-linenumber="86">
           
           
           <code class="ruby">          end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="88">
+        <li class="never" data-hits="" data-linenumber="87">
           
           
           <code class="ruby">        end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="89">
+        <li class="never" data-hits="" data-linenumber="88">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="90">
+        <li class="never" data-hits="" data-linenumber="89">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="91">
+        <li class="never" data-hits="" data-linenumber="90">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="92">
+        <li class="never" data-hits="" data-linenumber="91">
           
           
           <code class="ruby">end</code>

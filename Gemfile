@@ -28,6 +28,9 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'bootstrap', '~> 4.0.0'
+gem 'jquery-rails', '~> 4.3.0'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -42,10 +45,6 @@ group :development, :test do
   gem 'simplecov'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
-
-  # needed for Ian's system at home only
-  gem 'execjs'
-  gem 'therubyracer'
 end
 
 group :development do
