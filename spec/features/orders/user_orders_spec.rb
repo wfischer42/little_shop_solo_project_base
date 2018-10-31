@@ -17,9 +17,9 @@ RSpec.describe 'User Order pages' do
         create(:order_item, order: @order_1, item: @item_1)
         create(:order_item, order: @order_1, item: @item_2)
     
-        @order_2 = create(:fulfilled_order, user: @user)
-        create(:order_item, order: @order_2, item: @item_2)
-        create(:order_item, order: @order_2, item: @item_3)
+        @order_2 = create(:completed_order, user: @user)
+        create(:fulfilled_order_item, order: @order_2, item: @item_2)
+        create(:fulfilled_order_item, order: @order_2, item: @item_3)
     
         @order_3 = create(:cancelled_order, user: @user)
         create(:order_item, order: @order_3, item: @item_3)

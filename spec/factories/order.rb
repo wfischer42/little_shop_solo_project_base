@@ -3,9 +3,9 @@ FactoryBot.define do
     user
     status { "pending" }
   end
-  factory :fulfilled_order, parent: :order do
+  factory :completed_order, parent: :order do
     user
-    status { "fulfilled" }
+    status { "completed" }
   end
   factory :cancelled_order, parent: :order do
     user

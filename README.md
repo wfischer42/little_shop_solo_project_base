@@ -750,7 +750,7 @@ Any items in the order that were previously fulfilled have their quantities
 ### Statistics
 
 ```
-54. [ ] done
+54. [x] done
 
 As a merchant
 When I visit my dashboard, I see an area with statistics:
@@ -791,7 +791,7 @@ I see an area with statistics:
 ### Security
 
 ```
-57. [ ] done
+57. [x] done
 
 As an admin user
 I should have basic CRUD functionality for all content
