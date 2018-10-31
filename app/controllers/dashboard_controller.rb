@@ -16,7 +16,11 @@ class DashboardController < ApplicationController
       @top_buyers = @merchant.top_buyers(3)
       render :'merchants/show'
     elsif current_admin?
-      # not sure what we need here yet
+      @top_3_shipping_states = Order.top_shipping(:state, 3)
+      @top_3_shipping_cities = Order.top_shipping(:city, 3)
+      @top_buyers = Order.top_buyers(3)
+      @top_merchants = User.top_merchants(3)
+      @biggest_orders = Order.biggest_orders(3)
     else
       render file: 'errors/not_found', status: 404
     end

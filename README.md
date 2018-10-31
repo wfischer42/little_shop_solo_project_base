@@ -764,7 +764,7 @@ When I visit my dashboard, I see an area with statistics:
 ```
 
 ```
-55. [ ] done
+55. [x] done
 
 As an admin user
 When I visit my dashboard, I see an area with statistics:

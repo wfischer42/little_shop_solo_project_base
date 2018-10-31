@@ -59,6 +59,8 @@ class User < ApplicationRecord
       .joins(:orders)
       .joins('join order_items on orders.id=order_items.order_id')
       .joins('join items on order_items.item_id=items.id')
+      .where('orders.status != ?', :cancelled)
+      .where('order_items.fulfilled = ?', true)
       .where('items.user_id = ? AND users.active=?', id, true)
       .group(:id)
       .order('order_count desc')
@@ -70,6 +72,8 @@ class User < ApplicationRecord
     Order
       .select('orders.*, sum(order_items.quantity) as item_count')
       .joins(:items)
+      .where('orders.status != ?', :cancelled)
+      .where('order_items.fulfilled = ?', true)
       .where('items.user_id=?', id)
       .order('order_items.quantity desc')
       .group('items.user_id, orders.id, order_items.id')
@@ -83,10 +87,23 @@ class User < ApplicationRecord
       .joins(:orders)
       .joins('join order_items on orders.id=order_items.order_id')
       .joins('join items on order_items.item_id=items.id')
+      .where('orders.status != ?', :cancelled)
+      .where('order_items.fulfilled = ?', true)
       .where('items.user_id = ? AND users.active=?', id, true)
       .group(:id)
       .order('total_spent desc')
       .limit(quantity)
   end
 
+  def self.top_merchants(quantity)
+    select('users.*, sum(order_items.quantity*order_items.price) as total_earned')
+      .joins(:items)
+      .joins('join order_items on items.id=order_items.item_id')
+      .joins('join orders on orders.id=order_items.order_id')
+      .where('orders.status != ?', :cancelled)
+      .where('order_items.fulfilled = ?', true)
+      .group('orders.id, users.id, order_items.id')
+      .order('total_earned desc')
+      .limit(quantity)
+  end
 end

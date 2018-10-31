@@ -37,40 +37,40 @@
       (none yet)
       <% end %>
     </div>
+  </div>
 
-    <div id='stats-most-active-user'>
-    <p>Most Active Buying User:
-      <% if @most_active_buyer %>
-      <%= @most_active_buyer.name %>, <%= @most_active_buyer.order_count %> orders
-      <% else %>
-      (none yet)
-      <% end %>
+  <div id='stats-most-active-user'>
+  <p>Most Active Buying User:
+    <% if @most_active_buyer %>
+    <%= @most_active_buyer.name %>, <%= @most_active_buyer.order_count %> orders
+    <% else %>
+    (none yet)
+    <% end %>
+  </p>
+  </div>
+
+  <div id='stats-biggest-order'>
+    <p>Biggest Order:
+    <% if @biggest_order %>
+    Order #<%= @biggest_order.id %>, worth <%= number_to_currency(@biggest_order.total) %><br/>
+    It had <%= number_with_delimiter(@biggest_order.item_count) %> items of yours in the order.
+    <% else %>
+    (none yet)
+    <% end %>
     </p>
-    </div>
+  </div>
 
-    <div id='stats-biggest-order'>
-      <p>Biggest Order:
-      <% if @biggest_order %>
-      Order #<%= @biggest_order.id %>, worth <%= number_to_currency(@biggest_order.total) %><br/>
-      It had <%= @biggest_order.item_count %> items of yours in the order.
-      <% else %>
-      (none yet)
-      <% end %>
-      </p>
-    </div>
-
-    <div id='stats-top-buyers'>
-    <p>Top Buyers:</p>
-      <% if @top_buyers %>
-      <ul>
-      <% @top_buyers.each do |buyer| %>
-      <li><%= buyer.name %>, <%= number_to_currency(buyer.total_spent) %></li>
-      <% end %>
-      </ul>
-      <% else %>
-      (none yet)
-      <% end %>
-    </div>
+  <div id='stats-top-buyers'>
+  <p>Top Buyers:</p>
+    <% if @top_buyers %>
+    <ul>
+    <% @top_buyers.each do |buyer| %>
+    <li><%= buyer.name %>, <%= number_to_currency(buyer.total_spent) %></li>
+    <% end %>
+    </ul>
+    <% else %>
+    (none yet)
+    <% end %>
   </div>
 </div>
 
