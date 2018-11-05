@@ -1,11 +1,13 @@
 class Order < ApplicationRecord
   belongs_to :user
   has_many :order_items
-  has_many :items, through: :order_items
+  has_many :inventory_items, through: :order_items
+  has_many :items, through: :inventory_items
+
 
   validates_presence_of :status
 
-  def total 
+  def total
     oi = order_items.pluck("sum(quantity*price)")
     oi.sum
   end
@@ -27,7 +29,7 @@ class Order < ApplicationRecord
       .select('users.*, sum(order_items.quantity*order_items.price) as total_spent')
       .joins(:orders)
       .joins('join order_items on orders.id=order_items.order_id')
-      .joins('join items on order_items.item_id=items.id')
+      .joins('join inventory_items on order_items.inventory_item_id=inventory_items.id')
       .where('orders.status != ?', :cancelled)
       .where('order_items.fulfilled = ?', true)
       .where('users.active=?', true)
@@ -39,12 +41,12 @@ class Order < ApplicationRecord
   def self.biggest_orders(quantity)
     Order
       .select('orders.*, users.name as user_name, sum(order_items.quantity) as item_count')
-      .joins(:items)
+      .joins(:inventory_items)
       .joins('join users on orders.user_id=users.id')
       .where('orders.status != ?', :cancelled)
       .where('order_items.fulfilled = ?', true)
       .order('item_count desc')
-      .group('items.user_id, orders.id, order_items.id, users.id')
+      .group('inventory_items.user_id, orders.id, order_items.id, users.id')
       .limit(quantity)
   end
 end

@@ -2,7 +2,18 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :orders
-  has_many :items
+  has_many :inventory_items
+  has_many :items, through: :inventory_items
+  has_many :order_items, through: :inventory_items
+  has_many :merchant_orders, -> { distinct },
+           through: :order_items,
+           class_name: :Order,
+           foreign_key: "order_id"
+
+  has_many :customers, -> { distinct },
+           through: :merchant_orders,
+           class_name: :User,
+           foreign_key: "user_id"
 
   validates_presence_of :name, :address, :city, :state, :zip
   validates :email, presence: true, uniqueness: true
@@ -10,15 +21,12 @@ class User < ApplicationRecord
   enum role: %w(user merchant admin)
 
   def merchant_orders(status=nil)
-    if status.nil?
-      Order.distinct.joins(:items).where('items.user_id=?', self.id)
-    else
-      Order.distinct.joins(:items).where('items.user_id=? AND orders.status=?', self.id, status)
-    end
+    return super() if status.nil?
+    return super().where(status: status) if status
   end
 
-  def merchant_for_order(order)
-    !Order.distinct.joins(:items).where('items.user_id=? and orders.id=?', self.id, order.id).empty?
+  def merchant_for_order?(order)
+    order.in?(merchant_orders)
   end
 
   def total_items_sold
@@ -28,7 +36,7 @@ class User < ApplicationRecord
       .where("order_items.fulfilled=?", true)
       .sum("order_items.quantity")
   end
-  
+
   def total_inventory
     items.sum(:inventory)
   end
@@ -58,10 +66,10 @@ class User < ApplicationRecord
       .select('users.*, count(orders.id) as order_count')
       .joins(:orders)
       .joins('join order_items on orders.id=order_items.order_id')
-      .joins('join items on order_items.item_id=items.id')
+      .joins('join inventory_items on order_items.inventory_item_id=inventory_items.id')
       .where('orders.status != ?', :cancelled)
       .where('order_items.fulfilled = ?', true)
-      .where('items.user_id = ? AND users.active=?', id, true)
+      .where('inventory_items.user_id = ? AND users.active=?', id, true)
       .group(:id)
       .order('order_count desc')
       .limit(1)
@@ -74,9 +82,9 @@ class User < ApplicationRecord
       .joins(:items)
       .where('orders.status != ?', :cancelled)
       .where('order_items.fulfilled = ?', true)
-      .where('items.user_id=?', id)
+      .where('inventory_items.user_id=?', id)
       .order('order_items.quantity desc')
-      .group('items.user_id, orders.id, order_items.id')
+      .group('inventory_items.user_id, orders.id, order_items.id')
       .limit(1)
       .first
   end
@@ -86,10 +94,10 @@ class User < ApplicationRecord
       .select('users.*, sum(order_items.quantity*order_items.price) as total_spent')
       .joins(:orders)
       .joins('join order_items on orders.id=order_items.order_id')
-      .joins('join items on order_items.item_id=items.id')
+      .joins('join inventory_items on order_items.inventory_item_id=inventory_items.id')
       .where('orders.status != ?', :cancelled)
       .where('order_items.fulfilled = ?', true)
-      .where('items.user_id = ? AND users.active=?', id, true)
+      .where('inventory_items.user_id = ? AND users.active=?', id, true)
       .group(:id)
       .order('total_spent desc')
       .limit(quantity)
@@ -97,8 +105,8 @@ class User < ApplicationRecord
 
   def self.top_merchants(quantity)
     select('distinct users.*, sum(order_items.quantity*order_items.price) as total_earned')
-      .joins(:items)
-      .joins('join order_items on items.id=order_items.item_id')
+      .joins(:inventory_items)
+      .joins('join order_items on inventory_items.id=order_items.inventory_item_id')
       .joins('join orders on orders.id=order_items.order_id')
       .where('orders.status != ?', :cancelled)
       .where('order_items.fulfilled = ?', true)
@@ -109,8 +117,8 @@ class User < ApplicationRecord
 
   def self.popular_merchants(quantity)
     select('users.*, coalesce(count(order_items.id),0) as total_orders')
-      .joins('join items on items.user_id=users.id')
-      .joins('join order_items on order_items.item_id=items.id')
+      .joins('join inventory_items on inventory_items.user_id=users.id')
+      .joins('join order_items on order_items.inventory_item_id=inventory_items.id')
       .joins('join orders on orders.id=order_items.order_id')
       .where('orders.status != ?', :cancelled)
       .where('order_items.fulfilled = ?', true)
@@ -120,12 +128,12 @@ class User < ApplicationRecord
   end
 
   def self.merchant_by_speed(quantity, order)
-    select("distinct users.*, 
-      CASE 
+    select("distinct users.*,
+      CASE
         WHEN order_items.updated_at > order_items.created_at THEN coalesce(EXTRACT(EPOCH FROM order_items.updated_at) - EXTRACT(EPOCH FROM order_items.created_at),0)
         ELSE 1000000000 END as time_diff")
-      .joins(:items)
-      .joins('join order_items on items.id=order_items.item_id')
+      .joins(:inventory_items)
+      .joins('join order_items on inventory_items.id=order_items.inventory_item_id')
       .joins('join orders on orders.id=order_items.order_id')
       .where('orders.status != ?', :cancelled)
       .group('orders.id, users.id, order_items.updated_at, order_items.created_at')
