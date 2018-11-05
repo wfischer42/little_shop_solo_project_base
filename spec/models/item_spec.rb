@@ -21,7 +21,6 @@ RSpec.describe Item, type: :model do
     it '.popular_items(quantity)' do
       user = create(:user)
       merchants = create_list(:merchant, 2)
-      binding.pry
       inv_item_1 = create(:inventory_item, merchant: merchants[0])
       inv_item_2 = create(:inventory_item, merchant: merchants[0])
       inv_item_3 = create(:inventory_item, merchant: merchants[1])

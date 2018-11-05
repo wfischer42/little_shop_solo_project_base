@@ -1,5 +1,6 @@
 class OrderItem < ApplicationRecord
   belongs_to :order
+  belongs_to :merchant_order, class_name: :Order, foreign_key: 'order_id'
   belongs_to :inventory_item
 
   validates :price, presence: true, numericality: {
@@ -12,7 +13,6 @@ class OrderItem < ApplicationRecord
   }
 
   def subtotal
-    s = quantity * price
-    s
+    quantity * price
   end
 end
