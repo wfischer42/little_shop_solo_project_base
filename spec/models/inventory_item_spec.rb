@@ -13,4 +13,11 @@ RSpec.describe InventoryItem, type: :model do
     it { should validate_numericality_of(:inventory)
            .is_greater_than_or_equal_to(0) }
   end
+  describe 'Instance Methods' do
+    describe '.unit_price' do
+      subject { create(:inventory_item).unit_price }
+      let(:inv_item) { InventoryItem.last }
+      it { is_expected.to eq( inv_item.markup + inv_item.item.price) }
+    end
+  end
 end

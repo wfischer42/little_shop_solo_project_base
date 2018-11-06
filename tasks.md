@@ -1,0 +1,18 @@
+  - Things to Resolve Later
+    - Item Index Page
+      - [ ] Show price range for a given item rather than base price
+      - [ ] Show total number of units available from all merchants
+    - Item Show Page
+      - [ ] Show price range for given item
+      - [ ] Show total number of units available from all merchants
+      - [ ] List all merchants who sell the item, and their price.
+      - [ ] Have "Add to Cart" button to buy from any given merchant
+      - [ ] Have "Stock Item" button for merchants
+      - [ ] Have "Buy in Bulk" button to purchase up to the total inventory amount
+      - [ ] Update skipped cart tests
+    - Merchant Dashboard Items
+      - [ ] Add controls for changing inventory/markup
+      - [ ] Change "enable/disable" functionality
+        - [ ] Merchant should only be able to enable/disable inventory item
+        - [ ] Admin should be able to enable/disable the item itself
+      - [ ] Don't allow merchant to enable items in their store if they're disabled overall.

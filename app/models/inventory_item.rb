@@ -13,4 +13,8 @@ class InventoryItem < ApplicationRecord
     only_integer: false,
     greater_than_or_equal_to: 0
   }
+
+  def unit_price
+    markup + item.price
+  end
 end

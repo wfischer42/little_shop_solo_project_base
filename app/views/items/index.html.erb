@@ -44,7 +44,7 @@
     <% @fastest_merchants.each do |merchant| %>
       <li><%= merchant.name %></li>
     <% end %>
-    </ul>
+    </ol>
     <% else %>
     <p>(none yet)</p>
     <% end %>
@@ -60,7 +60,7 @@
     <% @slowest_merchants.each do |merchant| %>
       <li><%= merchant.name %></li>
     <% end %>
-    </ul>
+    </ol>
     <% else %>
     <p>(none yet)</p>
     <% end %>
@@ -77,35 +77,5 @@
 <hr>
 
 <% @items.each do |item| %>
-
-<div class="card float-left m-3" style="width: 18rem;">
-  <a href="<%= item_path(item) %>">
-  <img class="card-img-top" id="item-image-<%= item.id %>" alt="image for <%= item.name %>" src="<%= item.image %>" width="200" />
-  </a>
-
-  <div class="card-body" id="item-<%= item.id %>">
-    <h5 class="card-title">
-      <%= link_to item.name, item_path(item), class: 'card-link' %>
-      <% if current_admin? || current_user == item.user %>
-      <%= link_to "ID: #{item.id}", item_path(item) %>
-      <% end %>
-    </h5>
-    <img class="card-img-top" id="item-image-<%= item.id %>" alt="image for <%= item.name %>" src="<%= item.image %>" width="0" />
-    <p>Price: <%= number_to_currency(item.price) %></p>
-    <p>
-      <strong>Merchant:</strong> <%= item.user.name %><br/>
-      <strong>Inventory:</strong> <%= item.inventory %></p>
-    <p><em><%= item.description %></em></p>
-
-    <% if current_admin? || current_user && current_user == item.user %>
-      <p>Item Active: <%= item.active %></p>
-      <p><%= link_to 'Edit Item', edit_merchant_item_path(current_user, item), class: 'card-link' %></p>
-      <% if item.active %>
-      <%= button_to "Disable Item", merchant_item_disable_path(current_user, item.id), method: :patch, params: { toggle: :disable } %>
-      <% else %>
-      <%= button_to "Enable Item", merchant_item_enable_path(current_user, item.id), method: :patch, params: { toggle: :enable } %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+  <%= render 'item.html.erb', item: item %>
 <% end %>

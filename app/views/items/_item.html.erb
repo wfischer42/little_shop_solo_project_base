@@ -1,0 +1,41 @@
+<div class="card float-left m-3" style="width: 18rem;">
+  <a href="<%= item_path(item) %>">
+  <img class="card-img-top" id="item-image-<%= item.id %>" alt="image for <%= item.name %>" src="<%= item.image %>" width="200" />
+  </a>
+
+  <div class="card-body" id="item-<%= item.id %>">
+    <h5 class="card-title">
+      <%= link_to item.name, item_path(item), class: 'card-link' %>
+      <% if current_admin? || current_user.merchant? %>
+      <%= link_to "ID: #{item.id}", item_path(item) %>
+      <% end %>
+    </h5>
+    <img class="card-img-top" id="item-image-<%= item.id %>" alt="image for <%= item.name %>" src="<%= item.image %>" width="0" />
+    <p><em><%= item.description %></em></p>
+    <p>Base Price: <%= number_to_currency(item.price) %></p>
+
+    <% if @merchant_dashboard && inv_item %>
+      <p>Markup: <%= number_to_currency(inv_item.markup) %></p>
+      <p>My Price: <%= number_to_currency(inv_item.unit_price) %></p>
+      <p>Inventory: <%= inv_item.inventory %></p>
+
+      <p>Item Active: <%= inv_item.active %></p>
+      <p><%= link_to 'Edit Item', edit_item_path(item), class: 'card-link' %></p>
+      <% if inv_item.active %>
+      <%= button_to "Disable Item", merchant_inventory_item_disable_path(current_user, item.id), method: :patch, params: { toggle: :disable } %>
+      <% else %>
+      <%= button_to "Enable Item", merchant_inventory_item_enable_path(current_user, item.id), method: :patch, params: { toggle: :enable } %>
+      <% end %>
+    <% end %>
+    <%# TODO: Figure out what to do here! %>
+    <% if current_admin?%>
+      <p>Item Active: <%= item.active %></p>
+      <p><%= link_to 'Edit Item', edit_item_path(current_user, item), class: 'card-link' %></p>
+      <% if item.active %>
+      <%= button_to "Disable Item", item_disable_path(item.id), method: :patch, params: { toggle: :disable } %>
+      <% else %>
+      <%= button_to "Enable Item", item_enable_path(item.id), method: :patch, params: { toggle: :enable } %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

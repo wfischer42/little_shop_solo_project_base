@@ -1,0 +1,3 @@
+<% @inv_items.each do |inv_item| %>
+  <%= render 'items/item.html.erb', item: inv_item.item, inv_item: inv_item  %>
+<% end %>
