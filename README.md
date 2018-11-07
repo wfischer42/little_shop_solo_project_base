@@ -22,17 +22,16 @@ When a user visits the item index page the prices they see will indicate how man
 - Rails routing
 - Software Testing
 
-### Extra Stuff
-These aren't required, but here are some other things I hope to implement if there's time:
-- [ ] Merchants can add both absolute and relative markups. For example, as a merchant, I can mark up all items by $1.00 and/or by 20%.
-
-- [ ] Merchants can add universal markups, which apply to every item they stock, but they can over-ride that markup on specific items.
 
 ## Execution
-The first step is to update the original database schema to allow for the switch from a one-to-one relationship between Users (in a merchant role) and Items. This requires a join table (which I'm calling `InventoryItems` because it makes sense) and updating the existing rails relationships.
+The first step was to update the original database schema to allow for the switch from a one-to-one relationship between Users (in a merchant role) and Items. This requires a join table (which I'm calling `InventoryItems` because it makes sense) and updating the existing rails relationships.
 
-To implement the changes, we'll need a few database migrations as well.
+To implement the changes, I applied several database migrations. The main difference in the final schema was a join table between items and users. This table also has a "has many order_items" relationship, and it tracks the inventory count and markup, so it acts as more than just a join table.
 
 ## Revised Database Schema
 
 ![Schema](schema.png)
+
+## TDD to Incorporate New Schema
+After applying the changes to the schema, many of the tests were broken. Old relationships were missing and new ones were there. Using, TDD, I sequentially went through all the tests & revised functionality to work with the new schema. In a few cases, the features themselves had changed, which meant re-writing those tests.
+ 
