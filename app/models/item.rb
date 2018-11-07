@@ -18,6 +18,20 @@ class Item < ApplicationRecord
     greater_than_or_equal_to: 0
   }
 
+  def min_price
+    return price unless inventory_items.any?
+    price + inventory_items.minimum(:markup)
+  end
+
+  def max_price
+    return price unless inventory_items.any?
+    inventory_items.maximum(:markup) + price
+  end
+
+  def self.not_stocked_by(merchant)
+    Item.where('items.id NOT IN (?)', merchant.item_ids)
+  end
+
   def self.popular_items(quantity)
     select('items.*, sum(order_items.quantity) as total_ordered')
       .joins(:orders)

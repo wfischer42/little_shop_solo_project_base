@@ -13,24 +13,20 @@
   <img id="item-image-<%= @item.id %>" alt="image for <%= @item.name %>" src="<%= @item.image %>" />
 </p>
 
-<!-- <p>
-  <strong>Merchant:</strong>
-  <%# <%= @item.user.name %> %>
-</p> -->
-
 <p>
-  <strong>Base Price:</strong>
-  <%= @item.price %>
+  <strong>Base Price:</strong> <%= number_to_currency(@item.price) %>
 </p>
 
-<!-- <p>
-  <strong>Inventory:</strong>
-  <%# <%= @item.inventory %> %>
-</p> -->
+<% @item.inventory_items.each do |inventory_item| %>
+  <%= content_tag(:div, id: "inventory-item-#{inventory_item.id}") do %>
+    Merchant: <%= inventory_item.merchant %>
+    Price: <%= number_to_currency(inventory_item.unit_price) %>
+    Inventory: <%= inventory_item.inventory %>
+    <%= button_to 'Add to Cart', cart_item_quantity_path(inventory_item_id: inventory_item.id), method: :patch, params: {quantity: :more} %>
+  <% end %>
+<% end %>
 
-<%# <%= button_to 'Add to Cart', cart_item_quantity_path(item_id: @item.id), method: :patch, params: {quantity: :more} %> %>
-
-<% if current_admin? || current_user.merchant? %>
-<%= link_to 'Edit', edit_merchant_item(@item.user, @item) %> |
+<% if current_admin? || (current_user && current_user.merchant?) %>
+  <%= link_to 'Edit', edit_item_path(@item) %> |
 <% end %>
 <%= link_to 'Back', items_path %>

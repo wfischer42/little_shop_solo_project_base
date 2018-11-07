@@ -82,3 +82,15 @@ div {
 label {
   display: block;
 }
+
+.items-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  // grid-template-rows: repeat(auto-fill, 1fr);
+}
+
+.item-card {
+  display: block;
+  width: 20em;
+}

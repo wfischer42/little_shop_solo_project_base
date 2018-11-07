@@ -16,3 +16,5 @@
         - [ ] Merchant should only be able to enable/disable inventory item
         - [ ] Admin should be able to enable/disable the item itself
       - [ ] Don't allow merchant to enable items in their store if they're disabled overall.
+    - Stats
+      - [ ] Fix 'shows 5 most popular items' test to include items sold by multiple merchants

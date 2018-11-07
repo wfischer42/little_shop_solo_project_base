@@ -23,13 +23,13 @@ class OrdersController < ApplicationController
   end
 
   def create
-    items = Item.where(id: @cart.contents.keys)
+    inv_items = InventoryItem.where(id: @cart.contents.keys)
     order = Order.create!(user: current_user, status: :pending)
-    items.each do |item|
+    inv_items.each do |inv_item|
       order.order_items.create!(
-        item: item, 
-        price: item.price, 
-        quantity: @cart.count_of(item.id), 
+        inventory_item: inv_item,
+        price: inv_item.unit_price,
+        quantity: @cart.count_of(inv_item.id),
         fulfilled: false)
     end
     session[:cart] = nil
@@ -42,15 +42,15 @@ class OrdersController < ApplicationController
     render file: 'errors/not_found', status: 404 unless current_admin? || current_user == user
     order = Order.find(params[:id])
     render file: 'errors/not_found', status: 404 unless order
-    
+
     if params[:status]
       if params[:status] == 'cancel'
         order.order_items.each do |oi|
           if oi.fulfilled
             oi.fulfilled = false
             oi.save
-            oi.item.inventory += oi.quantity
-            oi.item.save
+            oi.inventory_item.inventory += oi.quantity
+            oi.inventory_item.save
           end
         end
         order.update(status: :cancelled)

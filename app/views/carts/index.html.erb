@@ -13,21 +13,22 @@
   </thead>
 
   <tbody>
-    <% @items.each do |item| %>
-      <tr id="item-<%= item.id %>">
+    <% @inventory_items.each do |inventory_item| %>
+      <% item = inventory_item.item %>
+      <tr id="inventory-item-<%= inventory_item.id %>">
         <td><%= link_to item.name, item_path(item) %></td>
         <td>
           <img id="item-image-<%= item.id %>" alt="image for <%= item.name %>" src="<%= item.image %>" width="200" />
         </td>
-        <td>Merchant: <%= item.user.name %></td>
-        <td>Price: <%= item.price %></td>
-        <td>Quantity: <%= @cart.count_of(item.id) %></td>
-        <td>Subtotal: <%= number_to_currency(item.price * @cart.count_of(item.id)) %></td>
+        <td>Merchant: <%= inventory_item.merchant.name %></td>
+        <td>Price: <%= number_to_currency(inventory_item.unit_price) %></td>
+        <td>Quantity: <%= @cart.count_of(inventory_item.id) %></td>
+        <td>Subtotal: <%= number_to_currency(inventory_item.unit_price * @cart.count_of(inventory_item.id)) %></td>
         <td>
-          <%= button_to 'Add 1', cart_item_quantity_path(item_id: item.id), method: :patch, params: {quantity: :more} %>
-          <%= button_to 'Remove 1', cart_item_quantity_path(item_id: item.id), method: :patch, params: {quantity: :less} %>
-          <%= button_to 'Remove All', cart_item_quantity_path(item_id: item.id), method: :patch, params: {quantity: :none} %>
-          decrease/remove
+          <%= button_to 'Add 1', cart_item_quantity_path(inventory_item_id: inventory_item.id), method: :patch, params: {quantity: :more} %>
+          <%= button_to 'Remove 1', cart_item_quantity_path(inventory_item_id: inventory_item.id), method: :patch, params: {quantity: :less} %>
+          <%= button_to 'Remove All', cart_item_quantity_path(inventory_item_id: inventory_item.id), method: :patch, params: {quantity: :none} %>
+          <%# decrease/remove %>
           </td>
       </tr>
     <% end %>

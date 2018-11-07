@@ -71,12 +71,12 @@ RSpec.describe Cart do
   end
 
   it '.grand_total' do
-    item_1, item_2 = create_list(:item, 2)
+    inv_item_1, inv_item_2 = create_list(:inventory_item, 2)
     cart = Cart.new({})
-    cart.add_item(item_1.id)
-    cart.add_item(item_2.id)
-    cart.add_item(item_2.id)
+    cart.add_item(inv_item_1.id)
+    cart.add_item(inv_item_2.id)
+    cart.add_item(inv_item_2.id)
 
-    expect(cart.grand_total).to eq(item_1.price+item_2.price+item_2.price)
+    expect(cart.grand_total).to eq(inv_item_1.unit_price+inv_item_2.unit_price+inv_item_2.unit_price)
   end
 end

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'dashboard#show'
   namespace :dashboard do
     resources :orders, only: [:index]
-    resources :inventory_items, only: [:index]
+    resources :inventory_items, only: [:index, :create]
   end
 
   resources :orders, only: [:index, :show, :create] do
@@ -35,7 +35,6 @@ Rails.application.routes.draw do
     patch 'enable', to: 'users#update'
     patch 'disable', to: 'users#update'
   end
-
   resources :merchants, only: [:index, :update, :show] do
     resources :orders, only: [:index]
     resources :inventory_items, only: [:index, :new, :show, :edit, :create, :update], param: :item_id
@@ -46,11 +45,14 @@ Rails.application.routes.draw do
   scope as: "merchant_inventory_item_disable" do
     patch '/merchants/:merchant_id/inventory_items/:item_id/disable', to: 'inventory_items#update'
   end
+  scope as: "unstocked_merchant_items" do
+    get '/items/:merchant_id/unstocked', to: 'items#index'
+  end
 
   resources :carts, path: '/cart', only: [:index]
   delete '/cart', to: 'carts#empty'
-  delete '/cart/:item_id', to: 'carts#remove'
-  patch '/cart/:item_id', to: 'carts#update', as: 'cart_item_quantity'
+  delete '/cart/:inventory_item_id', to: 'carts#remove'
+  patch '/cart/:inventory_item_id', to: 'carts#update', as: 'cart_item_quantity'
 
   # custom error pages
   get "/404", to: "errors#not_found"

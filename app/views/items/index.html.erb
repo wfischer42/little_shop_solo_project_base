@@ -1,81 +1,101 @@
-<h1>Items</h1>
+<% if current_user && current_user == @merchant %>
+  <%= link_to "Dashboard Items", dashboard_inventory_items_path %>
+<% else %>
+  <h1>Items</h1>
+  <div id="stats">
+    <div id="popular-items">
+      <div class="card float-left m-3" style="width: 25rem;">
+      <div class="card-body">
+      <h5 class="card-title">Most Popular Items:</h5>
+      <% if @popular_items %>
+      <ul>
+      <% @popular_items.each do |item| %>
+        <li><%= item.name %>, ordered <%= item.total_ordered %> times</li>
+      <% end %>
+      </ul>
+      <% else %>
+      <p>(none yet)</p>
+      <% end %>
+      </div>
+    </div>
 
-<div id="stats">
-  <div id="popular-items">
-    <div class="card float-left m-3" style="width: 25rem;">
-    <div class="card-body">
-    <h5 class="card-title">Most Popular Items:</h5>
-    <% if @popular_items %>
-    <ul>
-    <% @popular_items.each do |item| %>
-      <li><%= item.name %>, ordered <%= item.total_ordered %> times</li>
-    <% end %>
-    </ul>
-    <% else %>
-    <p>(none yet)</p>
-    <% end %>
+    <div id="popular-merchants">
+      <div class="card float-left m-3" style="width: 25rem;">
+      <div class="card-body">
+      <h5 class="card-title">Most Popular Merchants:</h5>
+      <% if @popular_merchants %>
+      <ul>
+      <% @popular_merchants.each do |merchant| %>
+        <li><%= merchant.name %>, ordered from <%= merchant.total_orders %> times</li>
+      <% end %>
+      </ul>
+      <% else %>
+      <p>(none yet)</p>
+      <% end %>
+    </div>
+    </div>
+
+  <br style="clear: both;">
+
+    <div id="fastest-merchants">
+      <div class="card float-left m-3" style="width: 25rem;">
+      <div class="card-body">
+      <h5 class="card-title">Fastest Merchants to Fulfill Ordered Items:</h5>
+      <% if @fastest_merchants %>
+      <ol>
+      <% @fastest_merchants.each do |merchant| %>
+        <li><%= merchant.name %></li>
+      <% end %>
+      </ol>
+      <% else %>
+      <p>(none yet)</p>
+      <% end %>
+    </div>
+    </div>
+
+    <div id="slowest-merchants">
+      <div class="card float-left m-3" style="width: 25rem;">
+      <div class="card-body">
+      <h5 class="card-title">Slowest Merchants to Fulfill Ordered Items:</h5>
+      <% if @slowest_merchants %>
+      <ol>
+      <% @slowest_merchants.each do |merchant| %>
+        <li><%= merchant.name %></li>
+      <% end %>
+      </ol>
+      <% else %>
+      <p>(none yet)</p>
+      <% end %>
+    </div>
     </div>
   </div>
 
-  <div id="popular-merchants">
-    <div class="card float-left m-3" style="width: 25rem;">
-    <div class="card-body">
-    <h5 class="card-title">Most Popular Merchants:</h5>
-    <% if @popular_merchants %>
-    <ul>
-    <% @popular_merchants.each do |merchant| %>
-      <li><%= merchant.name %>, ordered from <%= merchant.total_orders %> times</li>
-    <% end %>
-    </ul>
-    <% else %>
-    <p>(none yet)</p>
-    <% end %>
-  </div>
-  </div>
-
-<br style="clear: both;">
-
-  <div id="fastest-merchants">
-    <div class="card float-left m-3" style="width: 25rem;">
-    <div class="card-body">
-    <h5 class="card-title">Fastest Merchants to Fulfill Ordered Items:</h5>
-    <% if @fastest_merchants %>
-    <ol>
-    <% @fastest_merchants.each do |merchant| %>
-      <li><%= merchant.name %></li>
-    <% end %>
-    </ol>
-    <% else %>
-    <p>(none yet)</p>
-    <% end %>
-  </div>
-  </div>
-
-  <div id="slowest-merchants">
-    <div class="card float-left m-3" style="width: 25rem;">
-    <div class="card-body">
-    <h5 class="card-title">Slowest Merchants to Fulfill Ordered Items:</h5>
-    <% if @slowest_merchants %>
-    <ol>
-    <% @slowest_merchants.each do |merchant| %>
-      <li><%= merchant.name %></li>
-    <% end %>
-    </ol>
-    <% else %>
-    <p>(none yet)</p>
-    <% end %>
-  </div>
-  </div>
-</div>
-
-<br style="clear: both;">
+  <br style="clear: both;">
+<% end %>
 
 <% if current_user && current_user.merchant? %>
-<%= link_to 'Add New Item', new_merchant_item_path(current_user) %>
+  <%= link_to 'Add New Item', new_item_path(current_user) %>
 <% end %>
 
 <hr>
 
+<div class="items-grid">
 <% @items.each do |item| %>
-  <%= render 'item.html.erb', item: item %>
+  <div class="item-card">
+    <%= render 'item.html.erb', item: item %>
+    <% if current_user && current_user == @merchant %>
+      <% @item = item %>
+      <%= form_for @inv_item, url: dashboard_inventory_items_path do |f| %>
+        <%= hidden_field_tag :path, @path %>
+        <%= f.hidden_field :user_id, value: @merchant.id %>
+        <%= f.hidden_field :item_id, value: @item.id %>
+        <%= f.label :markup, "Markup (in $): " %>
+        <%= f.number_field :markup, min: 0 %><br>
+        <%= f.label :inventory, "Inventory: " %>
+        <%= f.number_field :inventory, min: 0 %><br>
+        <%= f.submit "Stock In Your Store" %>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>
+</div>

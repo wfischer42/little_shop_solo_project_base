@@ -1,4 +1,4 @@
-<div class="card float-left m-3" style="width: 18rem;">
+<div class="card m-3" style="width: 18rem;">
   <a href="<%= item_path(item) %>">
   <img class="card-img-top" id="item-image-<%= item.id %>" alt="image for <%= item.name %>" src="<%= item.image %>" width="200" />
   </a>
@@ -6,15 +6,21 @@
   <div class="card-body" id="item-<%= item.id %>">
     <h5 class="card-title">
       <%= link_to item.name, item_path(item), class: 'card-link' %>
-      <% if current_admin? || current_user.merchant? %>
+      <% if current_admin? || (current_user && current_user.merchant?) %>
       <%= link_to "ID: #{item.id}", item_path(item) %>
       <% end %>
     </h5>
     <img class="card-img-top" id="item-image-<%= item.id %>" alt="image for <%= item.name %>" src="<%= item.image %>" width="0" />
     <p><em><%= item.description %></em></p>
-    <p>Base Price: <%= number_to_currency(item.price) %></p>
+    <p>Sold by <%= item.inventory_items.count %> merchants.
+    <% if item.min_price == item.max_price %>
+      <p><%= "Price: #{number_to_currency(item.min_price)}" %></p>
+    <% else %>
+      <p><%= "Price range: #{number_to_currency(item.min_price)} - #{number_to_currency(item.max_price)}" %></p>
+    <% end %>
 
     <% if @merchant_dashboard && inv_item %>
+      <p>Base Price: <%= number_to_currency(item.price) %></p>
       <p>Markup: <%= number_to_currency(inv_item.markup) %></p>
       <p>My Price: <%= number_to_currency(inv_item.unit_price) %></p>
       <p>Inventory: <%= inv_item.inventory %></p>

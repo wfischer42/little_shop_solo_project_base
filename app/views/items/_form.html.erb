@@ -1,4 +1,4 @@
-<%= form_for [@merchant, @item], url: @form_url do |f| %>
+<%= form_for @item, url: @form_url do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>

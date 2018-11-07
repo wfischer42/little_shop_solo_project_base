@@ -3,8 +3,8 @@ class OrderItemsController < ApplicationController
     @order_item = OrderItem.find(params[:order_item_id])
     @order_item.fulfilled = true
     @order_item.save
-    @order_item.item.inventory -= @order_item.quantity
-    @order_item.item.save
+    @order_item.inventory_item.inventory -= @order_item.quantity
+    @order_item.inventory_item.save
 
     @order = @order_item.order
     if @order.order_items.where(fulfilled: false).count == 0

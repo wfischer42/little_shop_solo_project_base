@@ -1,7 +1,6 @@
 class InventoryItemsController < ApplicationController
   def update
     # TODO: Should handle changing inventory, enabling, disabling, or changing markup.
-
     render file: 'errors/not_found', status: 404 unless current_user
 
     @merchant = User.find(params[:merchant_id])

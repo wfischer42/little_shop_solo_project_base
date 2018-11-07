@@ -27,7 +27,7 @@ class Cart
   def remove_all_item(item_id)
     item_id_str = item_id.to_s
     if @contents.key?(item_id_str)
-      @contents.delete(item_id.to_s)      
+      @contents.delete(item_id.to_s)
     end
   end
 
@@ -37,8 +37,8 @@ class Cart
 
   def grand_total
     total = 0
-    Item.where(id: @contents.keys).each do |item|
-      total += (item.price * count_of(item.id))
+    InventoryItem.where(id: @contents.keys).each do |inv_item|
+      total += (inv_item.unit_price * count_of(inv_item.id))
     end
     total
   end

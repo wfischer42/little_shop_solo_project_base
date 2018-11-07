@@ -28,28 +28,28 @@ Updated <%= distance_of_time_in_words(@order.created_at, Time.now) %> ago
     <th></th>
   </tr>
   <% @order.order_items.each do |o_item| %>
-  <% if @user == current_user || o_item.item.user == current_user %>
+  <% if @user == current_user || o_item.inventory_item.merchant == current_user %>
   <tr id="orderitem-details-<%= o_item.id %>">
-    <td><%= o_item.item.name %></td>
-    <td><img src="<%= o_item.item.image %>" width="200"/></td>
+    <td><%= o_item.inventory_item.item.name %></td>
+    <td><img src="<%= o_item.inventory_item.item.image %>" width="200"/></td>
     <td><%= o_item.quantity %></td>
     <td><%= number_to_currency(o_item.price) %></td>
     <td><%= number_to_currency(o_item.subtotal) %></td>
     <td>
-      <% if o_item.item.user == current_user && 
-            current_user.merchant? && 
+      <% if o_item.inventory_item.merchant == current_user &&
+            current_user.merchant? &&
             o_item.fulfilled == false &&
-            o_item.quantity <= o_item.item.inventory
+            o_item.quantity <= o_item.inventory_item.inventory
       %>
       <%= button_to 'fulfill item', order_item_fulfill_path(@order, o_item), method: :patch %>
-      <% elsif o_item.item.user == current_user && 
-            current_user.merchant? && 
+      <% elsif o_item.inventory_item.merchant == current_user &&
+            current_user.merchant? &&
             o_item.fulfilled == false &&
-            o_item.quantity > o_item.item.inventory
+            o_item.quantity > o_item.inventory_item.inventory
       %>
       <span class="red">cannot fulfill, not enough inventory</span>
-      <% elsif o_item.item.user == current_user && 
-            current_user.merchant? && 
+      <% elsif o_item.inventory_item.merchant == current_user &&
+            current_user.merchant? &&
             o_item.fulfilled == true
       %>
       (item fulfilled)

@@ -1,3 +1,4 @@
+
 require 'rails_helper'
 
 RSpec.describe "Merchant Items" do
@@ -39,7 +40,7 @@ RSpec.describe "Merchant Items" do
         end
       end
 
-      it 'should allow me to disable active items' do
+      it 'should allow me to disable active items in my store' do
         inv_item_1 = create(:inventory_item, merchant: @merchant)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
 
@@ -55,7 +56,7 @@ RSpec.describe "Merchant Items" do
           expect(page).to have_button("Enable Item")
         end
       end
-      it 'should allow me to enable inactive items' do
+      it 'should allow me to enable inactive items in my store' do
         inv_item_1 = create(:inventory_item, active: false, merchant: @merchant)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
 
@@ -71,7 +72,7 @@ RSpec.describe "Merchant Items" do
           expect(page).to_not have_button("Enable Item")
         end
       end
-      xit 'should allow me to add a new item' do
+      it 'should allow me to add a new item' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
         visit dashboard_inventory_items_path
         click_link "Add New Item"
@@ -80,23 +81,41 @@ RSpec.describe "Merchant Items" do
         fill_in :item_description, with: 'hottest item of 2018'
         fill_in :item_image, with: 'new-image.jpg'
         fill_in :item_price, with: 5
-        fill_in :item_inventory, with: 100
         click_button 'Create Item'
 
-        expect(current_path).to eq dashboard_inventory_items_path
         item = Item.last
-        within "#item-#{item.id}" do
-          expect(page).to have_content("ID: #{item.id}")
-          expect(page).to have_content(item.name)
-          expect(page.find("#item-image-#{item.id}")['src']).to have_content(item.image)
-          expect(page).to have_content("Price: #{number_to_currency(item.price)}")
-          expect(page).to have_content("Inventory: #{item.inventory}")
-          expect(page).to have_link("Edit Item")
-          # disabled by default
-          expect(page).to have_button("Disable Item")
+        expect(current_path).to eq item_path(item)
+        expect(page).to have_content(item.name)
+        expect(page.find("#item-image-#{item.id}")['src']).to have_content(item.image)
+        expect(page).to have_content("Base Price: #{number_to_currency(item.price)}")
+        expect(page).to have_link("Edit")
+      end
+      it 'should allow me to stock item in my store' do
+        item_1, item_2 = create_list(:item, 2)
+        inv_item = create(:inventory_item, item: item_2, merchant: @merchant)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+        visit dashboard_inventory_items_path
+        click_link "Stock New Items"
+
+        expect(current_path).to eq unstocked_merchant_items_path(@merchant)
+        expect(page).to have_content(item_1.name)
+        expect(page).to_not have_content(item_2.name)
+        fill_in :inventory_item_markup, with: 0.5
+        fill_in :inventory_item_inventory, with: 100
+        click_button("Stock In Your Store")
+        expect(page).to_not have_content(item_1.name)
+        click_link "Dashboard Items"
+        within "#item-#{item_1.id}" do
+          expect(page).to have_content("ID: #{item_1.id}")
+          expect(page).to have_content(item_1.name)
+          expect(page.find("#item-image-#{item_1.id}")['src']).to have_content(item_1.image)
+          expect(page).to have_content("Markup: #{number_to_currency(0.5)}")
+          expect(page).to have_content("My Price: #{number_to_currency(item_1.price + 0.5)}")
+          expect(page).to have_content("Inventory: 100")
+          expect(page).to have_button("Enable Item")
         end
       end
-      xit 'should allow me to add a new item with a placeholder image' do
+      it 'should allow me to add a new item with a placeholder image' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
         visit dashboard_inventory_items_path
         click_link "Add New Item"
@@ -104,27 +123,25 @@ RSpec.describe "Merchant Items" do
         fill_in :item_name, with: 'New Item Name'
         fill_in :item_description, with: 'hottest item of 2018'
         fill_in :item_price, with: 5
-        fill_in :item_inventory, with: 100
         click_button 'Create Item'
 
-        expect(current_path).to eq dashboard_inventory_items_path
         item = Item.last
-        within "#item-#{item.id}" do
-          expect(page.find("#item-image-#{item.id}")['src']).to have_content('https://picsum.photos/200/300/?image=0&blur=true')
-        end
+        expect(current_path).to eq item_path(item)
+        expect(page).to have_content(item.name)
+        expect(page).to have_content("Base Price: #{number_to_currency(item.price)}")
+        expect(page).to have_link("Edit")
+        expect(page.find("#item-image-#{item.id}")['src']).to have_content('https://picsum.photos/200/300/?image=0&blur=true')
       end
-      xit 'should block me from adding a new item if form is blank' do
+      it 'should block me from adding a new item if form is blank' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
         visit dashboard_inventory_items_path
         click_link "Add New Item"
         click_button 'Create Item' # no data submitted
-        expect(current_path).to eq(merchant_items_path(@merchant))
+        expect(current_path).to eq(items_path)
         expect(page).to have_content("Name can't be blank")
         expect(page).to have_content("Description can't be blank")
         expect(page).to have_content("Price can't be blank")
         expect(page).to have_content("Price is not a number")
-        expect(page).to have_content("Inventory can't be blank")
-        expect(page).to have_content("Inventory is not a number")
       end
       it 'should allow me to edit an existing item' do
         inv_item = create(:inventory_item, merchant: @merchant)
@@ -145,7 +162,7 @@ RSpec.describe "Merchant Items" do
         within "#item-#{item.id}" do
           expect(page).to have_content('New Item Name')
           expect(page.find("#item-image-#{item.id}")['src']).to have_content('new-image.jpg')
-          expect(page).to have_content("Price: #{number_to_currency(5)}")
+          expect(page).to have_content("Base Price: #{number_to_currency(5)}")
         end
       end
       it 'should block me from editing a new item if require fields are blank' do

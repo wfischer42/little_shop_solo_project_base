@@ -1,6 +1,12 @@
 class ItemsController < ApplicationController
   def index
-      @items = Item.where(active: true)
+      if params[:merchant_id] && @merchant = User.find(params[:merchant_id])
+        @items = Item.not_stocked_by(@merchant)
+        @inv_item = InventoryItem.new()
+        @path = unstocked_merchant_items_path
+      else
+        @items = Item.where(active: true)
+      end
 
       @popular_items = Item.popular_items(5)
       @popular_merchants = User.popular_merchants(5)
@@ -10,8 +16,7 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    @merchant = User.find(params[:merchant_id])
-    @form_url = merchant_items_path
+    @form_url = items_path
   end
 
   def show
@@ -25,20 +30,18 @@ class ItemsController < ApplicationController
   end
 
   def create
-    render file: 'errors/not_found', status: 404 if current_user.nil?
-    @merchant = User.find(params[:merchant_id])
-    render file: 'errors/not_found', status: 404 unless current_admin? || current_user == @merchant
+    render file: 'errors/not_found', status: 404 unless current_admin? || current_user.merchant?
 
-    @item = @merchant.items.create(item_params)
+    @item = Item.create(item_params)
     if @item.save
       if @item.image.nil? || @item.image.empty?
         @item.image = 'https://picsum.photos/200/300/?image=0&blur=true'
         @item.save
       end
       flash[:success] = "Item created"
-      redirect_to current_admin? ? merchant_items_path(@merchant) : dashboard_items_path
+      redirect_to current_admin? ? items_path : item_path(@item)
     else
-      @form_url = merchant_items_path
+      @form_url = items_path
       render :new
     end
   end
